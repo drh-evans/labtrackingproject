@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('queues', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('task_id')->unique();
+            $table->boolean("is_open")->default(true);
             $table->timestamps();
+
+            $table->foreign('task_id')->references('id')->on('lab_tasks')->cascadeOnDelete();
+
         });
     }
 

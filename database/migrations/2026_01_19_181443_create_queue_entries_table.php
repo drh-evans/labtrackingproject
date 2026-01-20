@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('queue_entries', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('queue_id');
+            $table->unsignedBigInteger('student_id')->unique();
+            $table->unsignedInteger('queue_position')->unique();
+            $table->timestamp('joined_at');
             $table->timestamps();
+
+            $table->foreign('queue_id')->references('id')->on('queues')->cascadeOnDelete();
+            $table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 
