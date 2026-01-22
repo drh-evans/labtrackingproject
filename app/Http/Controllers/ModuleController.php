@@ -13,7 +13,7 @@ class ModuleController extends Controller
 
         $user = auth()->user();
 
-        $modules = $user->hasRole('Administator') 
+        $modules = $user->hasRole('Admin') 
         ? Module::all() 
         : $user->modules()->orderBy('module_code')->get();
 
@@ -24,12 +24,27 @@ class ModuleController extends Controller
         //
     }
 
-    public function create(Request $request) {
-        // create a module
+    public function create() {
+        Gate::authorize('create', Module::class);
+        return view('modules.create');
     }
 
-    public function store() {
-        // Store module new module
+    public function store(Request $request) {
+
+        Gate::authorize('create', Module::class);
+
+        $validatedData = $request->validate([
+            'module_code'=>'required|string|max:10|unique:modules,module_code',
+            'module_name'=>'required|string|max:30',
+        ]);
+
+        $module = new Module;
+        $module->module_code = $validatedData['module_code'];
+        $module->module_name = $validatedData['module_name'];
+
+        $module->save();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Module created!');
     }
 
     public function edit(Module $module) {

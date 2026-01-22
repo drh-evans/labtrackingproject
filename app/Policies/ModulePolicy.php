@@ -22,7 +22,7 @@ class ModulePolicy
     public function view(User $user, Module $module): bool
     {
         return $module->users()->where('users.id', $user->id)->exists()
-        || $user->hasRole('Administator');
+        || $user->hasRole('Admin');
     }
 
     /**
@@ -30,7 +30,7 @@ class ModulePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('Administator');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -38,7 +38,7 @@ class ModulePolicy
      */
     public function update(User $user, Module $module): bool
     {
-        return $user->hasRole('Administator');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -46,7 +46,7 @@ class ModulePolicy
      */
     public function delete(User $user, Module $module): bool
     {
-        return $user->hasRole('Administator');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -54,7 +54,7 @@ class ModulePolicy
      */
     public function restore(User $user, Module $module): bool
     {
-        return $user->hasRole('Administator');
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -62,6 +62,6 @@ class ModulePolicy
      */
     public function forceDelete(User $user, Module $module): bool
     {
-        return $user->hasRole('Administator');
+        return $user->hasRole('Admin');
     }
 }

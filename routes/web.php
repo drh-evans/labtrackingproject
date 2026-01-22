@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,7 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/modules/{module}', [ModuleController::class, 'show'])->name('modules.show');
     Route::get('/modules/{module}/edit', [ModuleController::class, 'edit'])->name('modules.edit');
     Route::patch('/modules/{module}', [ModuleController::class, 'update'])->name('modules.update');
+});
 
+Route::middleware(['can:access-admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
 require __DIR__.'/auth.php';
