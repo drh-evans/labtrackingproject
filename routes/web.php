@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LabTaskController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['can:access-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/modules/{module}/lab-tasks/create', [LabTaskController::class, 'create'])->name('lab-task.create');
+    Route::post('/modules/{module}//lab-tasks', [LabTaskController::class, 'store'])->name('lab-task.store');
 });
 
 require __DIR__.'/auth.php';

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('module_id');
             $table->unsignedBigInteger('created_by');
             $table->string('task_name');
-            $table->text('description');
-            $table->unsignedInteger('total_points');
+            $table->text('description')->nullable();
+            $table->decimal('total_points');
             $table->dateTime('fm_due_date'); // full marks
             $table->dateTime('hm_due_date'); // half marks
             $table->timestamps();

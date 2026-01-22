@@ -21,7 +21,8 @@ class ModuleController extends Controller
     }
 
     public function show(Module $module) {
-        //
+        Gate::authorize('view', $module);
+        return view('modules.show', ['module'=>$module,]);
     }
 
     public function create() {
@@ -44,7 +45,9 @@ class ModuleController extends Controller
 
         $module->save();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Module created!');
+        return redirect()
+        ->route('admin.dashboard')
+        ->with('success', 'Module created!');
     }
 
     public function edit(Module $module) {
