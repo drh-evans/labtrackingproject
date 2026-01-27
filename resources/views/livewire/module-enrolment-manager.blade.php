@@ -2,12 +2,12 @@
     <input type="text" wire:model.live.debounce.250ms="nameSearch" placeholder="Enter an email...">
 
     <select wire:model.live="roleFilter">
-        <option value="">All Roles</option>
-        <option value="Student">Student</option>
-        <option value="Teaching Assistant">Teaching Assistant</option>
         @can('access-admin')
+            <option value="">All Roles</option>
             <option value="Lecturer">Lecturer</option>
         @endcan
+        <option value="Teaching Assistant">Teaching Assistant</option>
+        <option value="Student">Student</option>
     </select>
 
     <table>
