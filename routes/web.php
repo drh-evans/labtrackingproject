@@ -33,6 +33,10 @@ Route::middleware(['can:access-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
+Route::middleware(['can:access-enrolment'])->group(function () {
+    Route::get('/modules/{module}/enrolment', [ModuleController::class, 'enrolment'])->name('module.enrolment');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/modules/{module}/lab-tasks/create', [LabTaskController::class, 'create'])->name('lab-task.create');
     Route::post('/modules/{module}//lab-tasks', [LabTaskController::class, 'store'])->name('lab-task.store');

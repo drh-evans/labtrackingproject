@@ -25,6 +25,11 @@ class ModulePolicy
         || $user->hasRole('Admin');
     }
 
+    public function enrol(User $user, Module $module): bool
+    {
+        return $user->hasRole('Lecturer') || $user->hasRole('Admin');
+    }
+
     /**
      * Determine whether the user can create models.
      */

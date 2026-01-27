@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('access-admin', fn(User $user) => $user->hasRole('Admin'));
+        Gate::define('access-enrolment', fn(User $user) => $user->hasRole('Admin') || $user->hasRole('Lecturer'));
+
         Gate::policy(LabTask::class, LabTaskPolicy::class);
 
     }

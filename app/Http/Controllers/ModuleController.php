@@ -57,4 +57,8 @@ class ModuleController extends Controller
     public function update(Request $request, Module $module) {
         // update edited module
     }
+
+    public function enrolment(Module $module) {
+        return view('modules.enrolment', ['module'=>$module,]);
+    }
 }
