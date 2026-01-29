@@ -42,4 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/modules/{module}//lab-tasks', [LabTaskController::class, 'store'])->name('lab-task.store');
 });
 
+Route::middleware(['can:signOff,module'])->group(function () {
+    Route::get('/modules/{module}/staff/students', [ModuleController::class, 'search'])->name('module.search');
+    Route::get('/modules/{module}/staff/students/student/{student}', [ModuleController::class, 'signOff'])->name('module.signoff');
+});
+
 require __DIR__.'/auth.php';

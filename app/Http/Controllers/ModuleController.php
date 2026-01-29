@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Module;
+use App\Models\User;
 
 class ModuleController extends Controller
 {
@@ -59,6 +60,17 @@ class ModuleController extends Controller
     }
 
     public function enrolment(Module $module) {
+        Gate::authorize('enrol', $module);
         return view('modules.enrolment', ['module'=>$module,]);
+    }
+
+    public function search(Module $module) {
+        Gate::authorize('signOff', $module);
+        return view('modules.search', ['module'=>$module,]);
+    }
+
+    public function signOff(Module $module, User $student) {
+        Gate::authorize('signOff', $module);
+        return view('modules.signoff', ['module'=>$module,'student'=>$student]);
     }
 }

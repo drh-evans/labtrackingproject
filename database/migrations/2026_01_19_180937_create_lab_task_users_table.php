@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lab_task_user', function (Blueprint $table) {
+        Schema::create('lab_task_users', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('lab_task_id');
             $table->unsignedBigInteger('user_id');
+            $table->decimal('marks_awarded')->default(0);
             $table->unsignedBigInteger('signed_off_by');
             $table->timestamp('completed_at');
             $table->timestamps();
@@ -34,9 +35,6 @@ return new class extends Migration
             ->on('users')
             ->cascadeOnDelete();
             $table->unique(['lab_task_id', 'user_id']);
-
-
-
         });
     }
 

@@ -9,6 +9,7 @@ class LabTaskUser extends Model
     protected $fillable = [
         "lab_task_id",
         "user_id",
+        "marks_awarded",
         "signed_off_by",
         "completed_at",
     ];

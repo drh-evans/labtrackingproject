@@ -31,4 +31,14 @@ class LabTask extends Model
     public function queue() {
         return $this->hasOne(Queue::class);
     }
+
+    // Helper function to get how much marks are getting awarded.
+    public function getMarksType(string $type) {
+        $marks = match ($type) {
+            'half' => $this->total_points / 2.0,
+            'full' => $this->total_points,
+            default => 0.0,
+        };
+        return $marks;
+    }
 }
