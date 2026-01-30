@@ -52,11 +52,18 @@ class ModuleController extends Controller
         $validatedData = $request->validate([
             'module_code'=>'required|string|max:10|unique:modules,module_code',
             'module_name'=>'required|string|max:30',
+            'image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ]);
 
         $module = new Module;
         $module->module_code = $validatedData['module_code'];
         $module->module_name = $validatedData['module_name'];
+
+        if ($request->hasFile('image')) {
+            $imageUrl = $request->file('image')->store('modules','public');
+            $module->bg_image_url = $imageUrl;
+        }
 
         $module->save();
 

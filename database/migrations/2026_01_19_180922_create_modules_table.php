@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('module_leader')->nullable(); // i.e. 1 (Lecturers ID)
             $table->year('year_taught')->nullable();
             $table->unsignedBigInteger('teaching_block')->nullable();
+            $table->string('bg_image_url')->nullable();
             $table->timestamps();
         });
     }

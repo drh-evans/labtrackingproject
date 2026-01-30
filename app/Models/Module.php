@@ -13,6 +13,7 @@ class Module extends Model
         'module_leader',
         'year_taught',
         'teaching_block',
+        'bg_image_url'
     ];
     
     public function users() {
