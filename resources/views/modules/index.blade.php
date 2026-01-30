@@ -1,22 +1,32 @@
 @extends('layouts.labapp')
 
+@section('title', 'Your modules:')
+
 @section('content')
     <div class="p-5">
-        <p>Your modules:</p>
-        <div class="grid grid-cols-4 gap-4">
+        <!-- credit: https://flowbite.com/docs/components/card/-->
+        <div class="grid grid-cols-3 gap-4">
             @foreach ($modules as $module)
-                <div>
-                    <p>
+                <div
+                    class="bg-neutral-primary-soft block max-w-xs overflow-hidden border border-default rounded-lg shadow-sm">
+                    <a href="{{ route('modules.show', $module) }}">
                         @if ($module->bg_image_url)
                             <img src="{{ asset('storage/' . $module->bg_image_url) }}" alt="{{ $module->module_name }}">
                         @else
                             <img src="{{ asset('storage/modules/default.jpg') }}" alt="{{ $module->module_name }}">
                         @endif
-                    </p>
-
-                    <a href="{{ route('modules.show', $module) }}">{{ $module->module_code }} -
-                        {{ $module->module_name }}</a>
-                    <br>
+                    </a>
+                    <div class="p-6 text-center">
+                        <a href="{{ route('modules.show', $module) }}">
+                            <h5 class="mt-3 mb-6 text-2xl font-semibold tracking-tight text-heading">
+                                {{ $module->module_code }} - {{ $module->module_name }}
+                            </h5>
+                        </a>
+                        <a href="{{ route('modules.show', $module) }}"
+                            class="inline-flex items-center text-white bg-blue-800 box-border border border-transparent rounded-md hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                            View module
+                        </a>
+                    </div>
                 </div>
             @endforeach
         </div>
