@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Module;
+use App\Models\LabTaskUser;
 use App\Models\User;
 
 class ModuleController extends Controller
@@ -23,7 +24,20 @@ class ModuleController extends Controller
 
     public function show(Module $module) {
         Gate::authorize('view', $module);
-        return view('modules.show', ['module'=>$module,]);
+
+        // all existing lab tasks
+        $labTasks = $module->labTasks()
+        ->orderBy('fm_due_date')
+        ->get();
+
+        // current users id
+        $userId = auth()->id();
+
+        // sign off records
+        $signOffs = LabTaskUser::where('user_id', $userId)
+        ->pluck('marks_awarded', 'lab_task_id');
+
+        return view('modules.show', ['module'=>$module, 'labTasks'=>$labTasks, 'signOffs'=>$signOffs,]);
     }
 
     public function create() {

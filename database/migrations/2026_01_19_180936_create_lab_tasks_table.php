@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('task_name');
             $table->text('description')->nullable();
             $table->decimal('total_points');
-            $table->dateTime('fm_due_date'); // full marks
-            $table->dateTime('hm_due_date'); // half marks
+            $table->date('fm_due_date'); // full marks
+            $table->date('hm_due_date'); // half marks
             $table->timestamps();
 
             $table->foreign('module_id')
