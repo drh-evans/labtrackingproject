@@ -5,15 +5,17 @@
 @section('content')
     <div class="p-5">
         <!-- credit: https://flowbite.com/docs/components/card/-->
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-4 gap-8">
             @foreach ($modules as $module)
                 <div
                     class="bg-neutral-primary-soft block max-w-xs overflow-hidden border border-default rounded-lg shadow-sm">
                     <a href="{{ route('modules.show', $module) }}">
                         @if ($module->bg_image_url)
-                            <img src="{{ asset('storage/' . $module->bg_image_url) }}" alt="{{ $module->module_name }}">
+                            <img src="{{ asset('storage/' . $module->bg_image_url) }}" alt="{{ $module->module_name }}"
+                                class='h-56 object-fill'>
                         @else
-                            <img src="{{ asset('storage/modules/default.jpg') }}" alt="{{ $module->module_name }}">
+                            <img src="{{ asset('storage/modules/default.jpg') }}" alt="{{ $module->module_name }}"
+                                class='h-56 object-fill'>
                         @endif
                     </a>
                     <div class="p-6 text-center">
@@ -23,7 +25,7 @@
                             </h5>
                         </a>
                         <a href="{{ route('modules.show', $module) }}"
-                            class="inline-flex items-center text-white bg-blue-800 box-border border border-transparent rounded-md hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                            class="inline-flex items-center text-white bg-blue-800 hover:bg-blue-700 box-border border border-transparent rounded-md hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
                             View module
                         </a>
                     </div>
