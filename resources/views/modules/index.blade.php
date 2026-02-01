@@ -5,7 +5,7 @@
 @section('content')
     <div class="p-5">
         <!-- credit: https://flowbite.com/docs/components/card/-->
-        <div class="grid grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-8">
             @foreach ($modules as $module)
                 <div
                     class="bg-neutral-primary-soft block max-w-xs overflow-hidden border border-default rounded-lg shadow-sm">

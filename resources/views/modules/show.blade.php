@@ -12,7 +12,13 @@
         <a href="{{ route('module.enrolment', $module) }}"> Enrol Users</a>
     @endcan
 
-    <a href="{{ route('module.search', $module) }}"> Staff </a>
+    @can('access-staff')
+        <a href="{{ route('module.search', $module) }}"> Staff </a>
+    @endcan
+
+    @can('update', $module)
+        @include('components.custom.edit-module-form', $module)
+    @endcan
 
     <div class="flex flex-col items-center justify-center">
         <div
@@ -30,7 +36,8 @@
                 <tbody>
                     @foreach ($labTasks as $labTask)
                         <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
-                            <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $labTask->task_name }}</td>
+                            <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $labTask->task_name }}
+                            </td>
                             <td class="px-6 py-4">{{ $labTask->fm_due_date }}</td>
                             <td class="px-6 py-4">{{ $labTask->hm_due_date }}</td>
                             <td class="px-6 py-4">

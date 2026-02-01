@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Module;
 use App\Models\LabTaskUser;
 use App\Models\User;
+use Storage;
 
 class ModuleController extends Controller
 {
@@ -73,11 +74,42 @@ class ModuleController extends Controller
     }
 
     public function edit(Module $module) {
-        // edit the module lecturer/admin
+        Gate::authorize('edit', Module::class);
+        return view('modules.edit', ['module'=>$module]);
     }
 
     public function update(Request $request, Module $module) {
-        // update edited module
+        Gate::authorize('update', $module);
+
+        $validatedData = $request->validate([
+            'module_code'=>'required|string|max:10|unique:modules,module_code',
+            'module_name'=>'required|string|max:30',
+            'image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
+
+        $module->module_code = $validatedData['module_code'];
+        $module->module_name = $validatedData['module_name'];
+
+        if ($request->hasFile('image')) {
+            if ($module->bg_image_url) {
+                Storage::delete('public/' . $module->bg_image_url);
+            }
+            $imageUrl = $request->file('image')->store('posts', 'public');;
+            $module->bg_image_url = $imageUrl;
+        }
+        $module->save();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Module updated');
+    }
+
+    public function destroy(Module $module) {
+        Gate::authorize('delete', $module);
+        if($module->bg_image_url) {
+            Storage::delete('public/' . $module->bg_image_url);
+        }
+        $module->delete();
+        return redirect()->route('admin.dashboard')->with('success', 'Module deleted.');
     }
 
     public function enrolment(Module $module) {

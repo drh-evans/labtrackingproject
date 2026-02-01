@@ -41,4 +41,44 @@ class LabTaskController extends Controller
         ->route('modules.show', $module)
         ->with('success', 'Lab task created!');
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(LabTask $labTask)
+    {
+        Gate::authorize('edit', LabTask::class);
+        return view('lab-tasks.edit', ['labTask'=>$labTask]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, LabTask $labTask)
+    {
+        Gate::authorize('edit', LabTask::class);
+
+        $validatedData = $request->validate([
+            'task_name' => 'required|string|max:100',
+            'description'=> 'nullable|string|max:500',
+            'total_points'=>'required|numeric|min:0|max:10',
+            'fm_due_date'=>'required|date',
+            'hm_due_date'=>'required|date|after:due_date',
+        ]);
+     
+        $labTask->task_name = $validatedData['task_name'];
+        $labTask->description = $validatedData['description'];
+        $labTask->total_points = $validatedData['total_points'];
+        $labTask->fm_due_date = $validatedData['fm_due_date'];
+        $labTask->hm_due_date = $validatedData['hm_due_date'];
+        $labTask->save();
+
+        return redirect()->route('modules.index')->with('success', 'Task updated');
+    }
+
+    public function destroy(LabTask $labTask) {
+        Gate::authorize('delete', LabTask::class);
+        $labTask->delete();
+        return redirect()->route('modules.index')->with('success', 'Task deleted.');
+    }
 }

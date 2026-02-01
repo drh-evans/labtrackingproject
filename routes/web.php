@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/modules/{module}', [ModuleController::class, 'show'])->name('modules.show');
     Route::get('/modules/{module}/edit', [ModuleController::class, 'edit'])->name('modules.edit');
     Route::patch('/modules/{module}', [ModuleController::class, 'update'])->name('modules.update');
+    Route::delete('/modules/{module}', [ModuleController::class, 'destroy'])->name('modules.destroy');
 });
 
 Route::middleware(['can:access-admin'])->group(function () {

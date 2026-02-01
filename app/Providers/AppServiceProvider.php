@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::define('access-admin', fn(User $user) => $user->hasRole('Admin'));
         Gate::define('access-enrolment', fn(User $user) => $user->hasRole('Admin') || $user->hasRole('Lecturer'));
-        
+        Gate::define('access-staff', fn(User $user) => $user->hasRole('Admin') || $user->hasRole('Lecturer') || $user->hasRole('Teaching Assistant'));
         Gate::policy(LabTask::class, LabTaskPolicy::class);
         Gate::policy(Module::class, ModulePolicy::class);
 
