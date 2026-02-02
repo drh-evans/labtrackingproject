@@ -8,12 +8,12 @@
                 @csrf
 
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    <p>Are you sure you want to edit the module, {{ $module->module_code }} - {{ $module->module_name }}
+                    <p>Are you sure you want to edit {{ $module->module_code }}, {{ $module->module_name }}?
                     </p>
                 </h2>
 
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {{ __('Changes made to this module will be final and you will not be able to automatically revert these changes') }}
+                    {{ __('Changes made to this module will be final and you will not be able to automatically revert these changes.') }}
                 </p>
 
                 <div class="mt-6">
@@ -41,16 +41,6 @@
                     <x-primary-button class="ms-3">
                         {{ __('Save Changes') }}
                     </x-primary-button>
-
-                    @can('delete', $module)
-                        <form action="{{ route('modules.destroy', $module) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="rounded-lg bg-red-500 hover:bg-red-400 px-3 py-1 font-semibold">Delete
-                                Module</button>
-                        </form>
-                    @endcan
                 </div>
             </form>
         </x-modal>

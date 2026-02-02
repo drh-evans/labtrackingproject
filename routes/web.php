@@ -40,12 +40,15 @@ Route::middleware(['can:access-enrolment'])->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/modules/{module}/lab-tasks/create', [LabTaskController::class, 'create'])->name('lab-task.create');
-    Route::post('/modules/{module}//lab-tasks', [LabTaskController::class, 'store'])->name('lab-task.store');
+    Route::post('/modules/{module}/lab-tasks', [LabTaskController::class, 'store'])->name('lab-task.store');
+    Route::patch('/modules/{module}/lab-tasks/{labTask}/edit', [LabTaskController::class, 'update'])->name('lab-task.update');
+    Route::delete('/modules/{module}/lab-tasks/{labTask}', [LabTaskController::class, 'destroy'])->name('lab-task.destroy');
 });
 
 Route::middleware(['can:signOff,module'])->group(function () {
     Route::get('/modules/{module}/staff/students', [ModuleController::class, 'search'])->name('module.search');
     Route::get('/modules/{module}/staff/students/student/{student}', [ModuleController::class, 'signOff'])->name('module.signoff');
+    
 });
 
 require __DIR__.'/auth.php';

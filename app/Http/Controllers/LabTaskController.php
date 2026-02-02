@@ -54,9 +54,9 @@ class LabTaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, LabTask $labTask)
+    public function update(Request $request, Module $module, LabTask $labTask)
     {
-        Gate::authorize('edit', LabTask::class);
+        Gate::authorize('update', $labTask);
 
         $validatedData = $request->validate([
             'task_name' => 'required|string|max:100',
@@ -73,12 +73,12 @@ class LabTaskController extends Controller
         $labTask->hm_due_date = $validatedData['hm_due_date'];
         $labTask->save();
 
-        return redirect()->route('modules.index')->with('success', 'Task updated');
+        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Task updated');
     }
 
-    public function destroy(LabTask $labTask) {
-        Gate::authorize('delete', LabTask::class);
+    public function destroy(Module $module, LabTask $labTask) {
+        Gate::authorize('delete', $labTask);
         $labTask->delete();
-        return redirect()->route('modules.index')->with('success', 'Task deleted.');
+        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Task deleted.');
     }
 }
