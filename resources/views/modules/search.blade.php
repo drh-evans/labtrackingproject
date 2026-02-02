@@ -4,5 +4,8 @@
 @endsection
 
 @section('content')
-    @livewire('student-search-manager', ['module' => $module])
+    <div>
+        @include('components.custom.back-button')
+        @livewire('student-search-manager', ['module' => $module])
+    </div>
 @endsection

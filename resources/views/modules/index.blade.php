@@ -4,6 +4,8 @@
 
 @section('content')
     <div class="p-5">
+        @include('components.custom.back-button')
+
         <!-- credit: https://flowbite.com/docs/components/card/-->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-8">
             @foreach ($modules as $module)

@@ -20,12 +20,12 @@
                     <x-input-label for="task_name" value="{{ __('Task Name') }}" class="sr-only" />
 
                     <x-text-input id="task_name" name="task_name" type="text" class="mt-1 block w-3/4"
-                        placeholder="{{ $labTask->task_name }}" />
+                        value="{{ $labTask->task_name }}" />
 
                     <x-input-label for="description" value="{{ __('Description') }}" class="sr-only" />
 
                     <x-text-input id="description" name="description" type="text" class="mt-1 block w-3/4"
-                        placeholder="{{ $labTask->description }}" />
+                        value="{{ $labTask->description }}" />
 
                     <input type="number" name="total_points" step="0.5" min="0" max="10"
                         value="{{ $labTask->total_points }}"

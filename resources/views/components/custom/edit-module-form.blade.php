@@ -20,14 +20,14 @@
                     <x-input-label for="module_code" value="{{ __('Module Code') }}" class="sr-only" />
 
                     <x-text-input id="module_code" name="module_code" type="text" class="mt-1 block w-3/4"
-                        placeholder="{{ $module->module_code }}" />
+                        value="{{ $module->module_code }}" />
 
                     <x-input-label for="module_name" value="{{ __('Module Name') }}" class="sr-only" />
 
                     <x-text-input id="module_name" name="module_name" type="text" class="mt-1 block w-3/4"
-                        placeholder="{{ $module->module_name }}" />
+                        value="{{ $module->module_name }}" />
 
-                    <input type="file" class="mt-2" name="image">
+                    <input type="file" class="mt-2 text-white" name="image">
 
                     @include('components.custom.error')
                 </div>

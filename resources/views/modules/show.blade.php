@@ -4,7 +4,8 @@
 @endsection
 
 @section('content')
-    <div class="flex flex-row items-center justify-center gap-4 mt-5 ml-4 mb-10">
+    @include('components.custom.back-button')
+    <div class="flex flex-row flex-wrap items-center justify-center gap-4 mt-5 ml-2 mr-2 mb-10">
         @can('create', App\Models\LabTask::class)
             <a href="{{ route('lab-task.create', $module) }}"> <x-secondary-button> Create a Task </x-secondary-button></a>
         @endcan
@@ -26,22 +27,19 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit"
-                    class="inline-flex items-center px-4 py-2 bg-white dark:bg-red-600 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Delete
+                    class="inline-flex items-center px-4 py-2 mr-2 bg-white dark:bg-red-600 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Delete
                     Module</button>
             </form>
         @endcan
     </div>
 
 
-    <div class="flex flex-col items-center justify-center">
-        <div
-            class="relative inline-block overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    <div class="flex flex-col items-center justify-center overflow-x-auto">
+        <div class="relative inline-block bg-neutral-primary-soft shadow-xs rounded-base border border-default">
             <table class="text-sm text-center rtl:text-right text-body">
                 <thead class="bg-neutral-secondary-soft border-b border-default">
                     <tr>
                         <th class="px-6 py-3 font-medium">Task Name</th>
-                        <th class="px-6 py-3 font-medium">Full Marks Due Date</th>
-                        <th class="px-6 py-3 font-medium">Half Marks Due Date</th>
                         <th class="px-6 py-3 font-medium">Status</th>
                         <th class="px-6 py-3 font-medium">Marks</th>
                     </tr>
@@ -49,9 +47,11 @@
                 @foreach ($labTasks as $labTask)
                     <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
                         <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $labTask->task_name }}
+                            @include('components.custom.task-details', [
+                                'module' => $module,
+                                'labTask' => $labTask,
+                            ])
                         </td>
-                        <td class="px-6 py-4">{{ $labTask->fm_due_date }}</td>
-                        <td class="px-6 py-4">{{ $labTask->hm_due_date }}</td>
                         <td class="px-6 py-4">
                             @if (isset($signOffs[$labTask->id]))
                                 <!-- unicode for green checkmark -->
