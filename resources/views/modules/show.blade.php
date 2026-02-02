@@ -4,31 +4,34 @@
 @endsection
 
 @section('content')
-    @can('create', App\Models\LabTask::class)
-        <a href="{{ route('lab-task.create', $module) }}">Create a Lab Task</a>
-    @endcan
+    <div class="flex flex-row items-center justify-center gap-4 mt-5 ml-4 mb-10">
+        @can('create', App\Models\LabTask::class)
+            <a href="{{ route('lab-task.create', $module) }}"> <x-secondary-button> Create a Task </x-secondary-button></a>
+        @endcan
 
-    @can('access-enrolment', $module)
-        <a href="{{ route('module.enrolment', $module) }}"> Enrol Users</a>
-    @endcan
+        @can('access-enrolment', $module)
+            <a href="{{ route('module.enrolment', $module) }}"> <x-secondary-button> Enrolment </x-secondary-button></a>
+        @endcan
 
-    @can('access-staff')
-        <a href="{{ route('module.search', $module) }}"> Staff </a>
-    @endcan
+        @can('access-staff')
+            <a href="{{ route('module.search', $module) }}"> <x-secondary-button> Staff </x-secondary-button> </a>
+        @endcan
 
-    @can('update', $module)
-        @include('components.custom.edit-module-form', $module)
-    @endcan
+        @can('update', $module)
+            @include('components.custom.edit-module-form', $module)
+        @endcan
 
-    @can('delete', $module)
-        <form action="{{ route('modules.destroy', $module) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit"
-                class="inline-flex items-center px-4 py-2 ml-4 mr-2 bg-white dark:bg-red-600 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Delete
-                Module</button>
-        </form>
-    @endcan
+        @can('delete', $module)
+            <form action="{{ route('modules.destroy', $module) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                    class="inline-flex items-center px-4 py-2 bg-white dark:bg-red-600 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Delete
+                    Module</button>
+            </form>
+        @endcan
+    </div>
+
 
     <div class="flex flex-col items-center justify-center">
         <div
