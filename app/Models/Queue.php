@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Queue extends Model
 {
     protected $fillable = [
-        'lab_task_id',
         'is_open',
     ];
 
-    public function labTask() {
-        return $this->belongsTo(LabTask::class);
+    public function module() {
+        return $this->belongsTo(Module::class);
     }
 
     public function queueEntries() {

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Observers\ModuleObserver;
 use App\Policies\LabTaskPolicy;
 use App\Policies\ModulePolicy;
 
@@ -33,6 +34,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(LabTask::class, LabTaskPolicy::class);
         Gate::policy(Module::class, ModulePolicy::class);
 
-
+        Module::observe(ModuleObserver::class);
     }
 }

@@ -7,5 +7,5 @@
 <!-- Credits: https://www.flaticon.com/free-icon/book_3275987?term=notebook&related_id=3275987 -->
 <div class="flex flex-row items-center justify-end">
     <img src="{{ asset('storage/logos/navbarlogo.png') }}" alt="LabTracker">
-    <p class="text-white font-semibold mx-2">LabTracker</p>
+    <p class="text-white font-mono font-semibold mx-2">LabTracker</p>
 </div>

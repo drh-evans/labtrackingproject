@@ -28,10 +28,6 @@ class LabTask extends Model
         return $this->hasMany(LabTaskUser::class, 'lab_task_id');
     }
 
-    public function queue() {
-        return $this->hasOne(Queue::class);
-    }
-
     // Helper function to get how much marks are getting awarded.
     public function getMarksType(string $type) {
         $marks = match ($type) {

@@ -23,4 +23,8 @@ class Module extends Model
     public function labTasks() {
         return $this->hasMany(LabTask::class);
     }
+
+    public function queue() {
+        return $this->hasOne(Queue::class);
+    }
 }

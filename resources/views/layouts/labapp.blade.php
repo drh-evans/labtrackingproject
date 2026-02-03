@@ -19,6 +19,8 @@
             @yield('content')
         </div>
     </div>
+
+    @include('components.custom.footer')
 </body>
 
 </html>
