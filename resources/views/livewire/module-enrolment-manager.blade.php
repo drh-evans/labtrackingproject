@@ -30,12 +30,12 @@
                         <td class="px-6 py-4">{{ $user->name }}</td>
                         <td class="px-6 py-4">
                             @if (in_array($user->id, $enroledUsers))
-                                <button wire:click="unenrol({{ $user->id }})"
+                                <button wire:key="unenrol-button" wire:click="unenrol({{ $user->id }})"
                                     class="p-2 rounded-lg bg-red-700 hover:bg-red-500 text-white">
                                     Unenrol
                                 </button>
                             @else
-                                <button wire:click="enrol({{ $user->id }})"
+                                <button wire:key="enrol-button" wire:click="enrol({{ $user->id }})"
                                     class="p-2 rounded-lg bg-green-700 hover:bg-green-500 text-white">
                                     Enrol
                                 </button>

@@ -34,7 +34,16 @@ class ModulePolicy
     {
         return $user->hasRole('Lecturer') || $user->hasRole('Teaching Assistant') || $user->hasRole('Admin');
     }
+    
+    public function openQueue(User $user, Module $module): bool
+    {
+        return $user->hasRole('Lecturer') || $user->hasRole('Admin');
+    }
 
+    public function accessQueue(User $user, Module $module): bool
+    {
+        return $module->queue->is_open;
+    }
     /**
      * Determine whether the user can create models.
      */

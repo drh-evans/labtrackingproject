@@ -6,6 +6,11 @@
 @section('content')
     @include('components.custom.back-button')
     <div class="flex flex-row flex-wrap items-center justify-center gap-4 mt-5 ml-2 mr-2 mb-10">
+
+        @can('accessQueue', $module)
+            @include('components.custom.queue-button', ['module' => $module])
+        @endcan
+
         @can('create', App\Models\LabTask::class)
             <a href="{{ route('lab-task.create', $module) }}"> <x-secondary-button> Create a Task </x-secondary-button></a>
         @endcan
@@ -16,6 +21,10 @@
 
         @can('access-staff')
             <a href="{{ route('module.search', $module) }}"> <x-secondary-button> Staff </x-secondary-button> </a>
+        @endcan
+
+        @can('openQueue', $module)
+            @livewire('toggle-queue-button', ['module' => $module])
         @endcan
 
         @can('update', $module)

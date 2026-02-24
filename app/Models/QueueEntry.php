@@ -9,7 +9,7 @@ class QueueEntry extends Model
     protected $fillable = [
         'queue_id',
         'student_id',
-        'position',
+        'queue_position',
         'joined_at',
     ];
 

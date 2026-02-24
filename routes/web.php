@@ -4,6 +4,7 @@ use App\Http\Controllers\LabTaskController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\QueueController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -45,10 +46,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/modules/{module}/lab-tasks/{labTask}', [LabTaskController::class, 'destroy'])->name('lab-task.destroy');
 });
 
+Route::middleware(['can:accessQueue,module'])->group(function () {
+    Route::get('/modules/{module}/queue', [QueueController::class, 'show'])->name('module.queue');
+});
+
 Route::middleware(['can:signOff,module'])->group(function () {
     Route::get('/modules/{module}/staff/students', [ModuleController::class, 'search'])->name('module.search');
     Route::get('/modules/{module}/staff/students/student/{student}', [ModuleController::class, 'signOff'])->name('module.signoff');
-    
 });
 
 require __DIR__.'/auth.php';

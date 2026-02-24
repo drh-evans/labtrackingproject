@@ -39,7 +39,7 @@ class ModuleEnrolmentManager extends Component
         $users = User::query()->when($this->nameSearch, fn($query) => $query->where('email','like',"%{$this->nameSearch}@swansea.test%"))
         ->when($this->roleFilter, fn($query)=>$query->whereHas('roles', fn($roles)=>$roles->where('name', $this->roleFilter)))
         ->orderBy('email')
-        ->paginate(10);
+        ->paginate(6);
 
         // Get the users enrolled on the module currently to display enrol or unenrol option
         $this->enroledUsers = $this->module->users()->pluck('users.id')->toArray();
