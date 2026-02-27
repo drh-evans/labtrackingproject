@@ -1,6 +1,6 @@
 @extends('layouts.labapp')
 
-@section('title', 'Your modules:')
+@section('title', 'Modules')
 
 @section('content')
     <div>
