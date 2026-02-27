@@ -30,8 +30,8 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="mt-4"> {{ $students->links() }}
-            </div>
+        </div>
+        <div class="mt-4"> {{ $students->links() }}
         </div>
     @else
         <p>No users found using this search... try again.</p>

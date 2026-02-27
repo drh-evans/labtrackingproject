@@ -44,8 +44,8 @@
                     </tr>
                 @endforeach
             </table>
-            <div class="mt-4"> {{ $users->links() }}
-            </div>
+        </div>
+        <div class="mt-4"> {{ $users->links() }}
         </div>
     @else
         <p>No results found, review your search.</p>

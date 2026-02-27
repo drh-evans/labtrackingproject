@@ -2,7 +2,7 @@
     <x-custom.edit-button x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-task-edit-{{ $labTask->id }}')">{{ __('Edit') }}</x-customedit-button>
 
-        <x-modal name="confirm-task-edit-{{ $labTask->id }}" :show="$errors->any()" focusable>
+        <x-modal name="confirm-task-edit-{{ $labTask->id }}" :show="$errors->{'labTaskEdit' . $labTask->id}->isNotEmpty()" focusable>
             <form method="post" action="{{ route('lab-task.update', [$module, $labTask]) }}" class="p-6">
                 @method('PATCH')
                 @csrf
@@ -35,9 +35,10 @@
                     <input type="date" name="hm_due_date" value="{{ $labTask->hm_due_date }}"
                         class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
 
-
-
-                    @include('components.custom.error')
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('task_name')" class="mt-2" />
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('total_points')" class="mt-2" />
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('fm_due_date')" class="mt-2" />
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('hm_due_date')" class="mt-2" />
                 </div>
 
                 <div class="mt-6 flex justify-end">

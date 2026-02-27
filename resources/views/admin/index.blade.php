@@ -4,5 +4,5 @@
 
 @section('content')
     <a href="{{ route('modules.create') }}"> Create a Module </a>
-    <p> Test Test</p>
+    <p> User Management</p>
 @endsection

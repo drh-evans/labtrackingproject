@@ -58,7 +58,7 @@ class LabTaskController extends Controller
     {
         Gate::authorize('update', $labTask);
 
-        $validatedData = $request->validate([
+        $validatedData = $request->validateWithBag('labTaskEdit'.$labTask->id,[
             'task_name' => 'required|string|max:100',
             'description'=> 'nullable|string|max:500',
             'total_points'=>'required|numeric|min:0|max:10',
