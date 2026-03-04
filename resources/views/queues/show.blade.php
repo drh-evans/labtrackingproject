@@ -1,6 +1,6 @@
 @extends('layouts.labapp')
 @section('title')
-    Lab Queue for {{ $module->module_code }} - {{ $module->module_name }}
+    Queue for {{ $module->module_code }} - {{ $module->module_name }}
 @endsection
 
 @section('content')

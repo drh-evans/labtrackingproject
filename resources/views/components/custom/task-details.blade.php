@@ -11,8 +11,8 @@
             {{ $labTask->task_name }}
         </h2>
 
-        <p class="mt-1 text-lg text-gray-600 dark:text-gray-400">
-            {{ $labTask->description }} <br>
+        <p class="text-lg text-gray-600 dark:text-gray-400 break-words whitespace-normal p-6">
+            {{ $labTask->description }}
         </p>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"> Total Points: {{ $labTask->total_points }} <br>
             Full Marks Due Date: {{ $labTask->fm_due_date }} <br>

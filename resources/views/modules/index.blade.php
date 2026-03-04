@@ -9,8 +9,7 @@
         <!-- credit: https://flowbite.com/docs/components/card/-->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 mt-6 ml-6">
             @foreach ($modules as $module)
-                <div
-                    class="bg-neutral-primary-soft block max-w-xs overflow-hidden border border-default rounded-lg shadow-sm">
+                <div class="bg-white block max-w-xs overflow-hidden border border-default rounded-lg shadow-md">
                     <a href="{{ route('modules.show', $module) }}">
                         @if ($module->bg_image_url)
                             <img src="{{ asset('storage/' . $module->bg_image_url) }}" alt="{{ $module->module_name }}"
