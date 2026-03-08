@@ -6,4 +6,5 @@
 @section('content')
     @include('components.custom.back-button')
     @livewire('join-queue-button', ['queue' => $queue])
+    @livewire('queue-viewer', ['queue' => $queue])
 @endsection

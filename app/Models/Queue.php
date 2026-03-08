@@ -15,7 +15,6 @@ class Queue extends Model
     }
 
     public function queueEntries() {
-        return $this->hasMany(QueueEntry::class)
-        ->orderBy('position');
+        return $this->hasMany(QueueEntry::class);
     }
 }

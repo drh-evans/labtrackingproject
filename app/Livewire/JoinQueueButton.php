@@ -27,19 +27,20 @@ class JoinQueueButton extends Component
             'queue_position' => $nextPosition ?: 1,
             'joined_at' => now(),
         ]);
-
-        $this->queue->refresh();
     }
 
     public function leaveQueue()
     {
         $user = Auth::user();
-        QueueEntry::where('queue_id', $this->queue->id)
-            ->where('student_id', $user->id)
-            ->delete();
+        $queueEntry = QueueEntry::where('queue_id', $this->queue->id)
+            ->where('student_id', $user->id)->first();
+            
+            if ($queueEntry)
+                {
+                $queueEntry->delete();
+                }
 
         $this->reorderPositions();
-        $this->queue->refresh();
     }
 
     public function isUserInQueue()

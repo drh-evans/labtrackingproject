@@ -57,3 +57,9 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+To run locally:
+sail up -d (-d, optional)
+sail npm run dev (in seperate terminal)
+sail artisan reverb:start --debug
+sail artisan queue:work
