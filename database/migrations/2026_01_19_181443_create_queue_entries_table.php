@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('queue_id');
             $table->unsignedBigInteger('student_id')->unique();
             $table->unsignedInteger('queue_position')->unique();
+            $table->enum('assistance_type', ['Assistance', 'Sign-off'])->default('Sign-off');
             $table->timestamp('joined_at');
             $table->timestamps();
 

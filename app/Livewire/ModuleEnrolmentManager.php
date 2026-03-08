@@ -44,7 +44,6 @@ class ModuleEnrolmentManager extends Component
         // Get the users enrolled on the module currently to display enrol or unenrol option
         $this->enroledUsers = $this->module->users()->pluck('users.id')->toArray();
 
-        //TODO fix bug where once enrol is clicked the new unenrol button cannot be fixed.
         return view('livewire.module-enrolment-manager', ['users'=>$users]);
     }
 }

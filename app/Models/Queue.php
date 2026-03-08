@@ -17,4 +17,15 @@ class Queue extends Model
     public function queueEntries() {
         return $this->hasMany(QueueEntry::class);
     }
+
+    public function reorderPositions()
+    {
+        $entries = $this->queueEntries()
+        ->orderBy('joined_at')
+        ->get();
+
+        foreach ($entries as $index => $entry) {
+            $entry->update(['queue_position' => $index + 1]);
+        }
+    }
 }

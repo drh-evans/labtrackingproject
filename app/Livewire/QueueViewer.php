@@ -23,7 +23,7 @@ class QueueViewer extends Component
 
     public function getListeners()
     {
-        return ["echo-private:queues.{$this->queue->id},.queue-updated" => '$refresh',];
+        return ["queue-updated-locally"=>'$refresh', "echo-private:queues.{$this->queue->id},.queue-updated" => '$refresh',];
     }
 
     public function render()
