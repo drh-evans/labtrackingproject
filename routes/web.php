@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatroomController;
 use App\Http\Controllers\LabTaskController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/modules/{module}/edit', [ModuleController::class, 'edit'])->name('modules.edit');
     Route::patch('/modules/{module}', [ModuleController::class, 'update'])->name('modules.update');
     Route::delete('/modules/{module}', [ModuleController::class, 'destroy'])->name('modules.destroy');
+
+    Route::get('/modules/{module}/chatroom', [ChatroomController::class, 'show'])->name('chatroom.show');
 });
 
 Route::middleware(['can:access-admin'])->group(function () {
@@ -49,6 +52,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['can:accessQueue,module'])->group(function () {
     Route::get('/modules/{module}/queue', [QueueController::class, 'show'])->name('module.queue');
 });
+
+
 
 Route::middleware(['can:signOff,module'])->group(function () {
     Route::get('/modules/{module}/staff/students', [ModuleController::class, 'search'])->name('module.search');

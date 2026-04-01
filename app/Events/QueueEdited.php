@@ -10,7 +10,8 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserLeftQueue
+// Event for queue edits such as opening or closing.
+class QueueEdited
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

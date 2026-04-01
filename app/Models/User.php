@@ -74,4 +74,8 @@ class User extends Authenticatable
     public function queueEntries() {
         return $this->hasMany(QueueEntry::class, 'student_id');
     }
+
+    public function messages() {
+        return $this->hasMany(Message::class, 'user_id');
+    }
 }

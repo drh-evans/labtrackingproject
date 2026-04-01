@@ -9,15 +9,17 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Message;
 
-class UserJoinedQueue
+// Event for message being sent
+class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(public Message $message)
     {
         //
     }
@@ -30,7 +32,20 @@ class UserJoinedQueue
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new PrivateChannel('chatroom.' . $this->message->chatroom_id),
         ];
+    }
+
+    public function broadcastWith() : array
+    {
+        return [
+            'id'         => $this->message->id,
+            'body'       => $this->message->body,
+            'created_at' => $this->message->created_at->toTimeString(),
+            'user' => [
+                'id'   => $this->message->user->id,
+                'name' => $this->message->user->name,
+            ],
+        ]; 
     }
 }

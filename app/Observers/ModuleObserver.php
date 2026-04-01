@@ -14,6 +14,11 @@ class ModuleObserver
         $module->queue()->create([
             'is_open' => false
         ]);
+
+        $module->chatroom()->create([
+            'name'=> $module->module_name . " Chatroom",
+            'is_open'=>false,
+        ]);
     }
 
     /**

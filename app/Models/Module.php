@@ -27,4 +27,8 @@ class Module extends Model
     public function queue() {
         return $this->hasOne(Queue::class);
     }
+
+    public function chatroom() {
+        return $this->hasOne(Chatroom::class);
+    }
 }
