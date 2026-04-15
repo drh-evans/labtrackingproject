@@ -27,6 +27,7 @@ class JoinQueueButton extends Component
         QueueEntry::create([
             'queue_id' => $this->queue->id,
             'student_id' => $user->id,
+            // if there's a next position set it to it otherwise set to 1
             'queue_position' => $nextPosition ?: 1,
             'joined_at' => now(),
         ]);

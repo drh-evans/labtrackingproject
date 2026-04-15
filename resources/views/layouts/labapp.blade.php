@@ -12,7 +12,7 @@
     @livewireScripts()
 </head>
 
-<body>
+<body class="m-0">
     @include('layouts.navigation')
     <div class="min-h-screen text-black">
         <!-- <h1 class="ml-4 font-bold text-3xl">@yield('title')</h1>-->

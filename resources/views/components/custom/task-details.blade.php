@@ -7,18 +7,19 @@
 
 
     <x-modal name="confirm-task-details-{{ $labTask->id }}" focusable>
-        <h2 class="mt-2 text-xl font-medium text-gray-900 dark:text-gray-100">
+        <h2 class="mt-2 text-xl font-medium text-black">
             {{ $labTask->task_name }}
         </h2>
 
-        <p class="text-lg text-gray-600 dark:text-gray-400 break-words whitespace-normal p-6">
+        <p class="text-md text-black break-words whitespace-normal p-6">
             {{ $labTask->description }}
         </p>
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"> Total Points: {{ $labTask->total_points }} <br>
-            Full Marks Due Date: {{ $labTask->fm_due_date }} <br>
-            Half Marks Due Date: {{ $labTask->hm_due_date }} <br></p>
+        <p class="mt-1 text-sm text-black"> Total Marks: {{ $labTask->total_points }} <br>
+            Full Marks Deadline: {{ $labTask->fm_due_date->format('d/m/Y') }} <br>
+            Half Marks Deadline: {{ $labTask->hm_due_date->format('d/m/Y') }} <br></p>
 
-        <div class="mt-4 mr-4 mb-4 flex justify-end">
+        <div class="mt-4
+            mr-4 mb-4 flex justify-end">
             <x-secondary-button x-on:click="$dispatch('close')">
                 {{ __('Close') }}
             </x-secondary-button>

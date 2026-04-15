@@ -10,24 +10,18 @@ use Illuminate\Support\Facades\Auth;
 class LivewireChatroom extends Component
 {
     public Chatroom $chatroom;
-    public $messages = [];
     public $body = '';
-
-    protected $listeners = ['echo-private:chatroom.{chatroom.id}, MessageSent' => 'messageReceived',];
+    
+    protected function getListeners(): array
+    {
+        return [
+            "echo-private:chatroom.{$this->chatroom->id},.message-sent" => 'messageReceived',
+        ];
+    }
 
     public function mount(Chatroom $chatroom) {
         // set current chatroom to the current one being displayed
         $this->chatroom = $chatroom;
-
-        // get current messages that belong to said chatroom
-        $this->messages = Message::with('user')
-                        ->where('chatroom_id', $chatroom->id)
-                        ->latest()
-                        ->take(50)
-                        ->get()
-                        ->reverse()
-                        ->map(fn($m) => (object) $m->toArray())
-                        ->toArray();
     }
 
     public function sendMessage() {
@@ -47,12 +41,19 @@ class LivewireChatroom extends Component
         $this->body = '';
     }
 
-    public function messageReceived($payload) {
-        $this->messages->push((object) $payload);
+    public function messageReceived() {
+        // refresh
     }
 
     public function render()
     {
-        return view('livewire.chatroom');
+        $messages = Message::with('user')
+                        ->where('chatroom_id', $this->chatroom->id)
+                        ->latest()
+                        ->take(50)
+                        ->get()
+                        ->reverse();
+
+        return view('livewire.chatroom', ['messages'=>$messages]);
     }
 }

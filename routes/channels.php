@@ -11,7 +11,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('queues.{queueId}', function ($user, $queueId) {
     $queue = Queue::with('module.users')->findOrFail($queueId);
 
-    $isMember = $queue->module->contains($user->id);
+    $isMember = $queue->module->users->contains($user->id);
     $isOpen = $queue->is_open;
 
     $canAccess = $isMember && $isOpen;
@@ -20,11 +20,11 @@ Broadcast::channel('queues.{queueId}', function ($user, $queueId) {
 
 Broadcast::channel('chatroom.{chatroomId}', function ($user, $chatroomId) {
     $chatroom = Chatroom::with('module.users')->findOrFail($chatroomId);
-
-    $isMember = $chatroom->module->contains($user->id);
+    
+    $isMember = $chatroom->module->users->contains($user->id);
     $isOpen = $chatroom->is_open;
 
-    $canAccess = $isMember && $isOpen;
+    $canAccess = $isMember; // && $isOpen;
 
     return $canAccess;
 });

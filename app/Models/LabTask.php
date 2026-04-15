@@ -16,12 +16,21 @@ class LabTask extends Model
         'hm_due_date',
     ];
 
+    protected $casts = [
+        'fm_due_date' => 'datetime',
+        'hm_due_date' => 'datetime',
+    ];
+
     public function creator() {
         return $this->belongsTo(User::class, 'created_by');
     }
 
     public function module() {
         return $this->belongsTo(Module::class);
+    }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'lab_task_users')->withTimestamps();
     }
 
     public function completions() {

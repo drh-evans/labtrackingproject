@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatroomController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabTaskController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProfileController;
@@ -9,12 +10,13 @@ use App\Http\Controllers\QueueController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    // check if a user is logged in, if not they get the welcome page
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

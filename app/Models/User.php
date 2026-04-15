@@ -67,6 +67,10 @@ class User extends Authenticatable
         return $this->hasMany(LabTaskUser::class, 'user_id');
     }
 
+    public function labTasks() {
+        return $this->belongsToMany(LabTask::class, 'lab_task_users')->withTimestamps();
+    }
+
     public function signOffs() {
         return $this->hasMany(LabTaskUser::class, 'signed_off_by');
     }
