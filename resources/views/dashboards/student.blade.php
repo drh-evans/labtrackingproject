@@ -25,7 +25,7 @@
             <h2 class="text-mdtext-gray-700"> Upcoming Deadlines:
             </h2>
             @forelse($tasks as $task)
-                <div class="bg-slate-200 mt-4 px-6 py-2 rounded-lg shadow-lg">
+                <div class="bg-slate-200 hover:bg-slate-300 mt-4 px-6 py-2 rounded-lg shadow-lg">
                     <a href={{ route('modules.show', $task->module_id) }} class="text-md mt-2 font-semibold">
                         {{ $task->module->module_code }} &#8227; {{ $task->task_name }}
                     </a> <br>

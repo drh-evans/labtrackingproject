@@ -13,17 +13,72 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
+
+    User::factory()->create([
+            'name' => 'Prof. Markus Roggenbach',
+            'email' => 'm.roggenbach@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
+        User::factory()->create([
+            'name' => 'Dr. Neal Harman',
+            'email' => 'n.harman@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
+        User::factory()->create([
+            'name' => 'Dr. Troy Astarte',
+            'email' => 't.k.astarte@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
+        User::factory()->create([
+            'name' => 'Dr. Nicholas Micallef',
+            'email' => 'nicolas.micallef@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
+        User::factory()->create([
+            'name' => 'Prof. Faron Moller',
+            'email' => 'f.moller@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
+        User::factory()->create([
+            'name' => 'Dr. Jens Blanck',
+            'email' => 'j.blanck@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
+        User::factory()->create([
+            'name' => 'Dr. Siemeng Qiu',
+            'email' => 's.qiu@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
+        User::factory()->create([
+            'name' => 'Mr. Randell Gaya',
+            'email' => 'randell.gaya@swansea.test',
+            'password' => 'testtest',
+        ])->roles()->attach(3);
+
         User::factory()->create([
             'name' => 'System Admin',
-            'email' => 'systemadmin@swansea.test',
+            'email' => 'systemadmin@labtracker.com',
             'password' => 'testtest',
         ])->roles()->attach(4);
 
-        User::factory()->create([
-            'name' => 'David Evans',
-            'email' => '2316644@swansea.test',
+            User::factory()->create([
+            'name' => 'Alex Vesely',
+            'email' => 'a.vesely@swansea.test',
             'password' => 'testtest',
-            ])->roles()->attach(1);
+            ])->roles()->attach(2);
+
+            User::factory()->create([
+            'name' => 'Ed Tickle',
+            'email' => 'e.tickle@swansea.test',
+            'password' => 'testtest',
+            ])->roles()->attach(2);
 
         User::factory(30)->create([
             'password' => 'testtest',

@@ -4,42 +4,68 @@
 @endsection
 
 @section('content')
-    @include('components.custom.back-button')
-    <div class="flex flex-row flex-wrap items-center justify-center gap-4 mt-5 ml-2 mr-2 mb-10">
+    <div class="bg-gray-50 p-6 m-10 rounded-lg shadow-lg border border-gray-200">
+        @include('components.custom.back-button')
 
-        @can('accessQueue', $module)
-            @include('components.custom.queue-button', ['module' => $module])
-        @endcan
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10">
+            <h1 class="text-2xl md:text-3xl font-semibold">
+                {{ $module->module_code }}, {{ $module->module_name }}
+            </h1>
+            <h2 class="text-md md:text-xl text-gray-700"> Module Coordinator:
+                @if ($module->leader)
+                    {{ $module->leader->name }} ({{ $module->leader->email }})
+                @else
+                    Staff member not found.
+                @endif
+            </h2>
+            <p class="mt-1 text-gray-600 max-w-2xl">
+                Teaching Year: {{ $module->year_taught }}
+            </p>
 
-        @can('create', App\Models\LabTask::class)
-            <a href="{{ route('lab-task.create', $module) }}"> <x-secondary-button> Create a Task </x-secondary-button></a>
-        @endcan
+            <p class="text-md font-semibold mt-2"> Total Marks: {{ $totalEarnedMarks }} /
+                {{ $totalModuleMarks }} ({{ $percentageEarned }}%)</p>
+        </div>
+    </div>
 
-        @can('access-enrolment', $module)
-            <a href="{{ route('module.enrolment', $module) }}"> <x-secondary-button> Enrolment </x-secondary-button></a>
-        @endcan
+    <div class="space-y-4 mt-5 mx-2 mb-10">
+        <div class="flex flex-wrap gap-3 justify-center">
+            @can('accessQueue', $module)
+                @include('components.custom.queue-button', ['module' => $module])
+            @endcan
 
-        @can('access-staff')
-            <a href="{{ route('module.search', $module) }}"> <x-secondary-button> Staff </x-secondary-button> </a>
-        @endcan
+            @can('openQueue', $module)
+                @livewire('toggle-queue-button', ['module' => $module])
+            @endcan
+        </div>
+        <div class="flex flex-wrap gap-3 justify-center">
+            @can('create', App\Models\LabTask::class)
+                <a href="{{ route('lab-task.create', $module) }}"> <x-secondary-button> Create a Task </x-secondary-button></a>
+            @endcan
 
-        @can('openQueue', $module)
-            @livewire('toggle-queue-button', ['module' => $module])
-        @endcan
+            @can('access-enrolment', $module)
+                <a href="{{ route('module.enrolment', $module) }}"> <x-secondary-button> Enrolment </x-secondary-button></a>
+            @endcan
 
-        @can('update', $module)
-            @include('components.custom.edit-module-form', $module)
-        @endcan
+            @can('access-staff')
+                <a href="{{ route('module.search', $module) }}"> <x-secondary-button> Staff </x-secondary-button> </a>
+            @endcan
+        </div>
+        <div class="flex flex-wrap gap-3 justify-center">
+            @can('update', $module)
+                @include('components.custom.edit-module-form', $module)
+            @endcan
 
-        @can('delete', $module)
-            <form action="{{ route('modules.destroy', $module) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                    class="inline-flex items-center px-4 py-2 mr-2 bg-white dark:bg-red-600 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Delete
-                    Module</button>
-            </form>
-        @endcan
+            @can('delete', $module)
+                <form action="{{ route('modules.destroy', $module) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="inline-flex items-center px-4 py-2 mr-2 bg-red-600 border border-gray-500 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Delete
+                        Module</button>
+                </form>
+            @endcan
+
+        </div>
     </div>
 
     <div class="flex flex-col items-center justify-center overflow-x-auto">
@@ -63,12 +89,11 @@
                             </td>
                             <td class="px-6 py-4">
                                 @if (isset($signOffs[$labTask->id]))
-                                    <!-- unicode for green checkmark -->
-                                    <p>&#9989;</p>
+                                    <p>Complete</p>
                                 @else
                                     <div>
                                         <!-- unicode for red cross -->
-                                        <p>&#10060;</p>
+                                        <p>Incomplete</p>
                                     </div>
                                 @endif
                             </td>
@@ -96,7 +121,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                            class="inline-flex items-center px-4 py-2 ml-2 mr-2 bg-white dark:bg-red-600 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
+                                            class="inline-flex items-center px-4 py-2 ml-2 mr-2 bg-red-600 borderborder-gray-500 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
                                             Delete
                                         </button>
                                     </form>

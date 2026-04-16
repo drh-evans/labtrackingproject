@@ -15,11 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('module_code')->unique(); // i.e. CSC-348
             $table->string('module_name'); // i.e. Web Applications Development
-            $table->unsignedBigInteger('module_leader')->nullable(); // i.e. 1 (Lecturers ID)
-            $table->year('year_taught')->nullable();
-            $table->unsignedBigInteger('teaching_block')->nullable();
+            $table->unsignedBigInteger('module_leader_id')->nullable(); // i.e. 1 (Lecturers ID)
+            $table->unsignedBigInteger('year_taught'); // academic year taught
+            $table->unsignedBigInteger('year_group'); // 1
             $table->string('bg_image_url')->nullable();
             $table->timestamps();
+
+            $table->foreign('module_leader_id')
+            ->references('id')
+            ->on('users')
+            ->nullOnDelete();
         });
     }
 

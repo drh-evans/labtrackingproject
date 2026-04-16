@@ -17,10 +17,11 @@ class ModuleController extends Controller
         $user = auth()->user();
 
         $modules = $user->hasRole('Admin') 
-        ? Module::all() 
-        : $user->modules()->orderBy('module_code')->get();
+        ? Module::with('leader')->orderBy('year_group', 'desc')->orderBy('module_code')->orderBy('year_taught', 'desc')->get()
+        : $user->modules()->with('leader')->orderBy('year_group', 'desc')->orderBy('module_code')->orderBy('year_taught','desc')->get();
 
-        return view('modules.index', compact('modules'));
+        $modulesByYear = $modules->groupBy('year_group')->sortKeysDesc();
+        return view('modules.index', compact('modulesByYear'));
     }
 
     public function show(Module $module) {
@@ -31,6 +32,9 @@ class ModuleController extends Controller
         ->orderBy('fm_due_date')
         ->get();
 
+        // sum up the total marks for a module i.e. 100
+        $totalModuleMarks = $labTasks->sum('total_points');
+
         // current users id
         $userId = auth()->id();
 
@@ -38,12 +42,21 @@ class ModuleController extends Controller
         $signOffs = LabTaskUser::where('user_id', $userId)
         ->pluck('marks_awarded', 'lab_task_id');
 
-        return view('modules.show', ['module'=>$module, 'labTasks'=>$labTasks, 'signOffs'=>$signOffs,]);
+        $totalEarnedMarks = $signOffs->sum();
+        // defaults to 0 if the total marks are 0 as 0/0 results in a warning, otherwise does the %
+        $percentageEarned = $totalModuleMarks > 0 ? (($totalEarnedMarks / $totalModuleMarks) * 100) : 0;
+
+        return view('modules.show', ['module'=>$module, 'labTasks'=>$labTasks, 'signOffs'=>$signOffs, 'totalModuleMarks'=>$totalModuleMarks, 'totalEarnedMarks'=>$totalEarnedMarks, 'percentageEarned'=>$percentageEarned]);
     }
 
     public function create() {
         Gate::authorize('create', Module::class);
-        return view('modules.create');
+        $lecturers = User::whereHas('roles', function($query) {
+            $query->where('name', 'Lecturer');
+        })
+        ->orderByDesc('email')
+        ->get();
+        return view('modules.create', compact('lecturers'));
     }
 
     public function store(Request $request) {
@@ -53,13 +66,22 @@ class ModuleController extends Controller
         $validatedData = $request->validate([
             'module_code'=>'required|string|max:10|unique:modules,module_code',
             'module_name'=>'required|string|max:30',
-            'image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
+            'module_leader_id'=>'required|integer|min:0',
+
+            'year_group'=>'required|integer|min:0|max:4',
+            'year_taught'=>'required|integer|min:2015|max:2050',
+
+            'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $module = new Module;
         $module->module_code = $validatedData['module_code'];
         $module->module_name = $validatedData['module_name'];
+        $module->module_leader_id = $validatedData['module_leader_id'];
+        $module->year_taught = $validatedData['year_taught'];
+        $module->year_group = $validatedData['year_group'];
+
 
         if ($request->hasFile('image')) {
             $imageUrl = $request->file('image')->store('modules','public');
@@ -100,7 +122,7 @@ class ModuleController extends Controller
         }
         $module->save();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Module updated');
+        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Module updated');
     }
 
     public function destroy(Module $module) {
@@ -109,7 +131,7 @@ class ModuleController extends Controller
             Storage::delete('public/' . $module->bg_image_url);
         }
         $module->delete();
-        return redirect()->route('admin.dashboard')->with('success', 'Module deleted.');
+        return redirect()->route('modules.index')->with('success', 'Module deleted.');
     }
 
     public function enrolment(Module $module) {

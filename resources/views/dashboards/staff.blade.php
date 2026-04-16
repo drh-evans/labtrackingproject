@@ -19,6 +19,9 @@
                     @endif
                 </h2>
 
+                <p class="mt-1 text-xs text-red-600 max-w-2xl"> If your role is incorrect, please contact
+                    systemadmin@labtracker.com</p>
+
                 <p class="mt-2 text-gray-600 max-w-2xl">
                     Your home for lab sessions at Swansea University, whether its helping students or uploading content.
             </div>

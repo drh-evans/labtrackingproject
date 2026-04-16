@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('queue_entries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('queue_id');
-            $table->unsignedBigInteger('student_id')->unique();
-            $table->unsignedInteger('queue_position')->unique();
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedInteger('queue_position');
             $table->enum('assistance_type', ['Assistance', 'Sign-off'])->default('Sign-off');
             $table->timestamp('joined_at');
             $table->timestamps();
 
             $table->foreign('queue_id')->references('id')->on('queues')->cascadeOnDelete();
             $table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();
+
+            // ensures that the queue position is unique per queue
+            $table->unique(['queue_id', 'queue_position']);
         });
     }
 

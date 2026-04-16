@@ -10,9 +10,9 @@ class Module extends Model
     protected $fillable = [
         'module_code',
         'module_name',
-        'module_leader',
+        'module_leader_id',
         'year_taught',
-        'teaching_block',
+        'year_group',
         'bg_image_url'
     ];
     
@@ -30,5 +30,9 @@ class Module extends Model
 
     public function chatroom() {
         return $this->hasOne(Chatroom::class);
+    }
+
+    public function leader() {
+        return $this->belongsTo(User::class, 'module_leader_id');
     }
 }
