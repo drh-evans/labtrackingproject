@@ -19,6 +19,8 @@
 
             <p class="mt-4"><strong>{{ $entries->count() }}</strong> {{ Str::plural('student', $entries) }} currently
                 in the queue.</p>
+
+            <p class="mt-4">The average wait is currently: <strong>{{ $averageWait }}</strong></p>
         </div>
 
         <livewire:join-queue-button :queue="$queue" />

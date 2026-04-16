@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('queue_id');
             $table->unsignedBigInteger('student_id');
-            $table->unsignedInteger('queue_position');
+            $table->unsignedInteger('queue_position')->nullable();
             $table->enum('assistance_type', ['Assistance', 'Sign-off'])->default('Sign-off');
             $table->timestamp('joined_at');
+            $table->timestamp('left_at')->nullable();
             $table->timestamps();
 
             $table->foreign('queue_id')->references('id')->on('queues')->cascadeOnDelete();

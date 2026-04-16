@@ -40,21 +40,29 @@ class JoinQueueButton extends Component
     {
         $user = Auth::user();
         $queueEntry = QueueEntry::where('queue_id', $this->queue->id)
-            ->where('student_id', $user->id)->first();
-            
-            if ($queueEntry) {
-                $queueEntry->delete();
-            }
+            ->where('student_id', $user->id)
+            ->whereNull('left_at')
+            ->first();
+        
+        if (!$queueEntry) {
+            return;
+        }
 
-        // ensure the queue remains consistent.
-        $this->queue->reorderPositions();
-        $this->dispatch("queue-updated-locally");
+        $queueEntry->update([
+            // they have now left so make them leave
+            // queues are only erased when the queue is closed for use
+            'left_at'=>now(),
+            'queue_position'=> null,
+        ]);
+        $this->dispatch(event: "queue-updated-locally");
+        $queueEntry->queue->reorderPositions();
     }
 
     // check if the current user has joined the queue already
     public function isUserInQueue()
     {
         return QueueEntry::where('queue_id', $this->queue->id)
+            ->whereNull('left_at')
             ->where('student_id', Auth::id())
             ->exists();
     }

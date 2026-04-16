@@ -31,4 +31,13 @@ class QueueEntryObserver
         broadcast(new QueueUpdated(entry: $queueEntry))->toOthers();
         // QueueUpdated::dispatch($queueEntry);
     }
+
+     /**
+     * Handle the QueueEntry "updated" event.
+     */
+    public function updated(QueueEntry $queueEntry): void
+    {
+        broadcast(new QueueUpdated(entry: $queueEntry))->toOthers();
+        // QueueUpdated::dispatch($queueEntry);
+    }
 }

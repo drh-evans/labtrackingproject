@@ -15,6 +15,12 @@ class QueueEntry extends Model
         'queue_position',
         'assistance_type',
         'joined_at',
+        'left_at',
+    ];
+
+    protected $casts = [
+        'left_at'=>'datetime',
+        'joined_at'=>'datetime',
     ];
 
     public function queue() {

@@ -21,6 +21,7 @@ class Queue extends Model
     public function reorderPositions()
     {
         $entries = $this->queueEntries()
+        ->whereNull('left_at')
         ->orderBy('joined_at')
         ->get();
 

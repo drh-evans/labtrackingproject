@@ -21,7 +21,8 @@ class QueueUpdated implements ShouldBroadcast
     public int $id;
     public int $queueId;
     public int $studentId;
-    public int $queuePosition;
+    // can be null or an int
+    public ?int $queuePosition;
     public string $joinedAt;
     /**
      * Create a new event instance.

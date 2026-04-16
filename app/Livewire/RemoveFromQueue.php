@@ -17,7 +17,10 @@ class RemoveFromQueue extends Component
     public function remove()
     {
         Gate::authorize('removeFromQueue', $this->queueEntry);
-        $this->queueEntry->delete();
+        $this->queueEntry->update([
+            'left_at'=>now(),
+            'queue_position'=> null,
+        ]);
         $this->dispatch(event: "queue-updated-locally");
         $this->queueEntry->queue->reorderPositions();
     }

@@ -4,21 +4,56 @@ namespace App\Livewire;
 
 use App\Models\Queue;
 
+use App\Models\QueueEntry;
 use Livewire\Component;
 
 class QueueViewer extends Component
 {
     public Queue $queue;
+    public $joinedAt;
 
     public function mount(Queue $queue) 
     {
         $this->queue = $queue;
+
+        // get the current users queue entry, null if doesn't exist
+        $currentEntry = $this->queue->queueEntries()
+        ->where('student_id', auth()->id())
+        ->whereNull('left_at')
+        ->first();
+
+        // get the time joined for the current queue entry if it exists
+        $this->joinedAt = $currentEntry?->joined_at?->timestamp;
     }
 
     private function getQueueEntries()
     {
-        $entries = $this->queue->queueEntries()->with('student')->orderBy('joined_at')->get();
+        $entries = $this->queue
+        ->queueEntries()
+        ->with('student')
+        ->whereNull('left_at')
+        ->orderBy('queue_position')
+        ->get();
         return $entries;
+    }
+
+    private function getAverageWait()
+    {
+        // get the finished queue entries
+        $leftEntries = $this->queue->queueEntries()
+        ->whereNotNull('left_at')
+        ->get();
+
+        if($leftEntries->isEmpty()) {
+            return '00:00';
+        }
+
+        $averageWait = $leftEntries->avg(function($entry){
+            $difference = $entry->left_at->diffInSeconds($entry->joined_at, true);
+            return $difference;
+        });
+
+        return gmdate('i:s', $averageWait);
     }
 
     public function getListeners()
@@ -28,6 +63,6 @@ class QueueViewer extends Component
 
     public function render()
     {
-        return view('livewire.queue-viewer', ['entries'=>$this->getQueueEntries()]);
+        return view('livewire.queue-viewer', ['entries'=>$this->getQueueEntries(), 'averageWait'=>$this->getAverageWait()]);
     }
 }
