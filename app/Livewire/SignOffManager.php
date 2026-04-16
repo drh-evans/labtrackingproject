@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Notifications\SignedOffNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\LabTaskUser;
@@ -48,6 +49,8 @@ class SignOffManager extends Component
             'signed_off_by'=>Auth::id(),
             'completed_at'=>now()]
         );
+
+        $this->student->notify(new SignedOffNotification($labTask, $this->module));
     }
 
     public function removeSignOff(int $taskId) {

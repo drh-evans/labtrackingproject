@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Notifications\ModuleEnrollmentNotification;
+use App\Notifications\RemovedFromModuleNotification;
 use Livewire\Component;
 use App\Models\Module;
 use App\Models\User;
@@ -25,12 +27,17 @@ class ModuleEnrolmentManager extends Component
     {
         Gate::authorize('enrol', $this->module);
         $this->module->users()->syncWithoutDetaching($userID);
+
+        $user = User::findOrFail($userID);
+        $user->notify(new ModuleEnrollmentNotification($this->module));
     }
 
     public function unenrol(int $userID)
     {
         Gate::authorize('enrol', $this->module);
         $this->module->users()->detach($userID);
+        $user = User::findOrFail($userID);
+        $user->notify(new RemovedFromModuleNotification($this->module));
     }
 
     public function render()
