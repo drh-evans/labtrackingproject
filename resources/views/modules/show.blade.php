@@ -30,6 +30,10 @@
 
     <div class="space-y-4 mt-5 mx-2 mb-10">
         <div class="flex flex-wrap gap-3 justify-center">
+            @can('accessChatroom', $module)
+                @include('components.custom.chatroom-button', ['module' => $module])
+            @endcan
+
             @can('accessQueue', $module)
                 @include('components.custom.queue-button', ['module' => $module])
             @endcan
@@ -52,20 +56,18 @@
             @endcan
         </div>
         <div class="flex flex-wrap gap-3 justify-center">
-            @can('update', $module)
-                @include('components.custom.edit-module-form', $module)
-            @endcan
-
             @can('delete', $module)
                 <form action="{{ route('modules.destroy', $module) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
-                        class="inline-flex items-center px-4 py-2 mr-2 bg-red-600 border border-gray-500 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Delete
-                        Module</button>
+                        class="inline-flex items-center px-2 py-1 bg-red-600 border border-gray-500 rounded-md font-semibold text-sm text-white uppercase shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 disabled:opacity-25 transition ease-in-out duration-150">Delete</button>
                 </form>
             @endcan
 
+            @can('update', $module)
+                @include('components.custom.edit-module-form', $module)
+            @endcan
         </div>
     </div>
 
@@ -78,6 +80,7 @@
                             <th class="px-6 py-3 font-medium">Task Name</th>
                             <th class="px-6 py-3 font-medium">Status</th>
                             <th class="px-6 py-3 font-medium">Marks</th>
+                            <th class="px-6 py-3 font-medium">Actions</th>
                         </tr>
                     </thead>
                     @foreach ($labTasks as $labTask)
@@ -108,26 +111,28 @@
                                 @endif
                             </td>
 
-                            @can('update', $labTask)
-                                <td> @include('components.custom.edit-lab-task-form', [
-                                    'labTask' => $labTask,
-                                    'module' => $module,
-                                ])
-                                </td>
-                            @endcan
+                            <td>
+                                <div class="flex items-center justify-center gap-2">
 
-                            @can('delete', $labTask)
-                                <td>
-                                    <form action="{{ route('lab-task.destroy', [$module, $labTask]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="inline-flex items-center px-4 py-2 ml-2 mr-2 bg-red-600 borderborder-gray-500 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </td>
-                            @endcan
+                                    @can('delete', $labTask)
+                                        <form action="{{ route('lab-task.destroy', [$module, $labTask]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="inline-flex items-center px-2 py-1 bg-red-600 border border-gray-500 rounded-md font-semibold text-sm text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 disabled:opacity-25 transition ease-in-out duration-150">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan
+
+                                    @can('update', $labTask)
+                                        @include('components.custom.edit-lab-task-form', [
+                                            'labTask' => $labTask,
+                                            'module' => $module,
+                                        ])
+                                    @endcan
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -26,6 +26,7 @@ return new class extends Migration
             ->references('id')
             ->on('modules')
             ->cascadeOnDelete();
+            
             $table->foreign('created_by')
             ->references('id')
             ->on('users')

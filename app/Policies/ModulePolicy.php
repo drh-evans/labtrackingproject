@@ -44,6 +44,11 @@ class ModulePolicy
     {
         return $module->queue->is_open;
     }
+
+    public function accessChatroom(User $user, Module $module): bool
+    {
+        return $module->chatroom->is_open;
+    }
     /**
      * Determine whether the user can create models.
      */

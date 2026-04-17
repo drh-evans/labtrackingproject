@@ -73,12 +73,12 @@ class LabTaskController extends Controller
         $labTask->hm_due_date = $validatedData['hm_due_date'];
         $labTask->save();
 
-        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Task updated');
+        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Task updated successfully!');
     }
 
     public function destroy(Module $module, LabTask $labTask) {
         Gate::authorize('delete', $labTask);
         $labTask->delete();
-        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Task deleted.');
+        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Task deleted successfully!');
     }
 }

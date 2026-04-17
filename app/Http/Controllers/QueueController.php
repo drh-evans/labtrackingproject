@@ -34,6 +34,10 @@ class QueueController extends Controller
 
         $user = Auth::user();
 
+        if($this->isInQueue()) {
+            return redirect()->back()->with('error', 'Already a member of another queue!');
+        }
+
         // find out what position this user is going to join at
         $nextPosition = QueueEntry::where('queue_id', $queue->id)
             ->whereNull('left_at')
@@ -52,6 +56,14 @@ class QueueController extends Controller
             'joined_at' => now(),
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Successfully joined the queue!');
+    }
+
+    // helper to see if they've joined a queue already
+    private function isInQueue() : bool {
+        $isInQueue = QueueEntry::where('student_id', Auth::id())
+        ->whereNull('left_at')
+        ->exists();
+        return $isInQueue;
     }
 }

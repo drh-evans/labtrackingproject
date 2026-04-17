@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center justify-center overflow-x-auto">
     <div class="flex- flex-row mb-6">
-        <input type="text" wire:model.live.debounce.250ms="nameSearch" placeholder="Enter an email..."
+        <input type="text" wire:model.live.debounce.250ms="nameSearch" placeholder="Enter a user..."
             class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
 
         <select wire:model.live="roleFilter"

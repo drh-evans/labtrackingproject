@@ -1,47 +1,47 @@
 <div>
-    <x-custom.edit-button x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-module-edit')">{{ __('Edit Module') }}</x-customedit-button>
+    <x-tertiary-button x-data=""
+        x-on:click.prevent="$dispatch('open-modal', 'confirm-module-edit')">{{ __('Edit Module') }}</x-tertiary-button>
 
-        <x-modal name="confirm-module-edit" :show="$errors->any()" focusable>
-            <form method="post" action="{{ route('modules.update', $module) }}" class="p-6">
-                @method('PATCH')
-                @csrf
+    <x-modal name="confirm-module-edit" :show="$errors->any()" focusable>
+        <form method="post" action="{{ route('modules.update', $module) }}" class="p-6">
+            @method('PATCH')
+            @csrf
 
-                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    <p>Are you sure you want to edit {{ $module->module_code }}, {{ $module->module_name }}?
-                    </p>
-                </h2>
-
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {{ __('Changes made to this module will be final and you will not be able to automatically revert these changes.') }}
+            <h2 class="text-lg font-medium text-gray-900">
+                <p>Are you sure you want to edit {{ $module->module_code }}, {{ $module->module_name }}?
                 </p>
+            </h2>
 
-                <div class="mt-6">
-                    <x-input-label for="module_code" value="{{ __('Module Code') }}" class="sr-only" />
+            <p class="mt-1 text-sm text-gray-700">
+                {{ __('Changes made to this module will be final and you will not be able to automatically revert these changes.') }}
+            </p>
 
-                    <x-text-input id="module_code" name="module_code" type="text" class="mt-1 block w-3/4"
-                        value="{{ $module->module_code }}" />
+            <div class="mt-6">
+                <x-input-label for="module_code" value="{{ __('Module Code') }}" class="sr-only" />
 
-                    <x-input-label for="module_name" value="{{ __('Module Name') }}" class="sr-only" />
+                <x-text-input id="module_code" name="module_code" type="text" class="mt-1 block w-3/4"
+                    value="{{ $module->module_code }}" />
 
-                    <x-text-input id="module_name" name="module_name" type="text" class="mt-1 block w-3/4"
-                        value="{{ $module->module_name }}" />
+                <x-input-label for="module_name" value="{{ __('Module Name') }}" class="sr-only" />
 
-                    <input type="file" class="mt-2 text-white" name="image">
+                <x-text-input id="module_name" name="module_name" type="text" class="mt-1 block w-3/4"
+                    value="{{ $module->module_name }}" />
 
-                    @include('components.custom.error')
-                </div>
+                <input type="file" class="mt-2 text-white" name="image">
 
-                <div class="mt-6 flex justify-end">
+                @include('components.custom.error')
+            </div>
 
-                    <x-secondary-button x-on:click="$dispatch('close')">
-                        {{ __('Close') }}
-                    </x-secondary-button>
+            <div class="mt-6 flex justify-end">
 
-                    <x-primary-button class="ms-3">
-                        {{ __('Save Changes') }}
-                    </x-primary-button>
-                </div>
-            </form>
-        </x-modal>
+                <x-tertiary-button x-on:click="$dispatch('close')">
+                    {{ __('Close') }}
+                </x-tertiary-button>
+
+                <x-primary-button class="ms-3">
+                    {{ __('Save Changes') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
 </div>

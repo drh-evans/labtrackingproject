@@ -122,7 +122,7 @@ class ModuleController extends Controller
         }
         $module->save();
 
-        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Module updated');
+        return redirect()->route('modules.show', ['module'=>$module])->with('success', 'Module updated successfully!');
     }
 
     public function destroy(Module $module) {
@@ -131,7 +131,7 @@ class ModuleController extends Controller
             Storage::delete('public/' . $module->bg_image_url);
         }
         $module->delete();
-        return redirect()->route('modules.index')->with('success', 'Module deleted.');
+        return redirect()->route('modules.index')->with('success', 'Module deleted successfully!');
     }
 
     public function enrolment(Module $module) {
