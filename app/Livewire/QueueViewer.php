@@ -10,20 +10,10 @@ use Livewire\Component;
 class QueueViewer extends Component
 {
     public Queue $queue;
-    public $joinedAt;
-
+    
     public function mount(Queue $queue) 
     {
         $this->queue = $queue;
-
-        // get the current users queue entry, null if doesn't exist
-        $currentEntry = $this->queue->queueEntries()
-        ->where('student_id', auth()->id())
-        ->whereNull('left_at')
-        ->first();
-
-        // get the time joined for the current queue entry if it exists
-        $this->joinedAt = $currentEntry?->joined_at?->timestamp;
     }
 
     private function getQueueEntries()
@@ -63,6 +53,15 @@ class QueueViewer extends Component
 
     public function render()
     {
-        return view('livewire.queue-viewer', ['entries'=>$this->getQueueEntries(), 'averageWait'=>$this->getAverageWait()]);
+        // get the current users queue entry, null if doesn't exist
+        $currentEntry = $this->queue->queueEntries()
+        ->where('student_id', auth()->id())
+        ->whereNull('left_at')
+        ->first();
+
+        // get the time joined for the current queue entry if it exists
+        $joinedAt = $currentEntry?->joined_at?->timestamp;
+
+        return view('livewire.queue-viewer', ['entries'=>$this->getQueueEntries(), 'averageWait'=>$this->getAverageWait(), 'joinedAt'=>$joinedAt]);
     }
 }

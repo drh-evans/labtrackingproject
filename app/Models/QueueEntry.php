@@ -14,6 +14,9 @@ class QueueEntry extends Model
         'student_id',
         'queue_position',
         'assistance_type',
+        'location',
+        'task',
+        'information',
         'joined_at',
         'left_at',
     ];

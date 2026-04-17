@@ -16,7 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('queue_id');
             $table->unsignedBigInteger('student_id');
             $table->unsignedInteger('queue_position')->nullable();
-            $table->enum('assistance_type', ['Assistance', 'Sign-off'])->default('Sign-off');
+            $table->string("task");
+            $table->string('assistance_type');
+            $table->string("location");
+            $table->text("information")->nullable();
             $table->timestamp('joined_at');
             $table->timestamp('left_at')->nullable();
             $table->timestamps();

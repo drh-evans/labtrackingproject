@@ -9,4 +9,10 @@
             <livewire:queue-viewer :queue="$queue" />
         </div>
     </div>
+
+    @include('components.custom.join-queue-modal', [
+        'module' => $module,
+        'queue' => $queue,
+        'labTasks' => $labTasks,
+    ])
 @endsection

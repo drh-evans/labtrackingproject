@@ -5,7 +5,8 @@
 
 @section('content')
     <div class="bg-gray-50 p-6 m-10 rounded-lg shadow-lg border border-gray-200">
-        @include('components.custom.back-button')
+        <a href="{{ route('modules.index') }}"> <x-tertiary-button>{{ __('return') }}</x-tertiary-button>
+        </a>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10">
             <h1 class="text-2xl md:text-3xl font-semibold">

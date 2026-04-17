@@ -3,8 +3,10 @@
 @section('title', 'Modules')
 
 @section('content')
-    <div>
-        @include('components.custom.back-button')
+    <div class="mt-4 ml-4">
+        <a href="{{ route('dashboard') }}">
+            <x-tertiary-button>{{ __('return') }}</x-tertiary-button>
+        </a>
 
         @foreach ($modulesByYear as $moduleYear => $modules)
             <h1 class="text-2xl font-bold ml-6 mt-4">Year {{ $moduleYear }} Modules:</h1>

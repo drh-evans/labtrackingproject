@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['can:accessQueue,module'])->group(function () {
     Route::get('/modules/{module}/queue', [QueueController::class, 'show'])->name('module.queue');
+    Route::post('/modules/{module}/queue/join', [QueueController::class, 'joinQueue'])->name('queue.join');
 });
 
 

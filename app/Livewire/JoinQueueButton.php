@@ -16,26 +16,6 @@ class JoinQueueButton extends Component
         $this->queue = $queue;
     }
 
-    public function joinQueue()
-    {
-        $user = Auth::user();
-
-        // find out what position this user is going to join at
-        $nextPosition = QueueEntry::where('queue_id', $this->queue->id)
-            ->max('queue_position') + 1;
-
-        QueueEntry::create([
-            'queue_id' => $this->queue->id,
-            'student_id' => $user->id,
-            // if there's a next position set it to it otherwise set to 1
-            'queue_position' => $nextPosition ?: 1,
-            'joined_at' => now(),
-        ]);
-
-        // previously had lag issues, local one updates instantly, main one updates for other users
-        $this->dispatch("queue-updated-locally");
-    }
-
     public function leaveQueue()
     {
         $user = Auth::user();
@@ -75,8 +55,10 @@ class JoinQueueButton extends Component
     // return the view with inQueue which shows if the current user is in the queue - this is to control if join or leave is shown
     public function render()
     {
+        $labTasks = $this->queue->module->labTasks()->orderBy('task_name')->get();
          return view('livewire.join-queue-button', [
             'inQueue' => $this->isUserInQueue(),
+            'labTasks' => $labTasks,
         ]);
     }
 }

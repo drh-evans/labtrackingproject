@@ -1,6 +1,5 @@
 <div class="flex flex-col items-center justify-center overflow-x-auto">
     @if ($labTasks->isNotEmpty())
-        <h1> Showing {{ $student->name }}'s ({{ $student->email }}) lab progress for {{ $module->module_code }}</h1>
 
         <div class="relative inline-block bg-neutral-primary-soft shadow-xs rounded-base border border-default mt-6">
             <table class="text-sm text-center rtl:text-right text-body">
@@ -10,6 +9,7 @@
                         <th class="px-6 py-3 font-medium">Full Marks Deadline</th>
                         <th class="px-6 py-3 font-medium">Half Marks Deadline</th>
                         <th class="px-6 py-3 font-medium">Total Marks</th>
+                        <th class="px-6 py-3 font-medium">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
