@@ -6,6 +6,7 @@ use App\Observers\ModuleObserver;
 use App\Policies\LabTaskPolicy;
 use App\Policies\ModulePolicy;
 
+use App\Services\CSVService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
@@ -20,7 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // binding for CSV service
+        app()->singleton(CSVService::class, function ($app) {
+            return new CSVService();
+        });
     }
 
     /**

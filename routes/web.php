@@ -4,6 +4,9 @@ use App\Http\Controllers\ChatroomController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabTaskController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ModuleImportController;
+use App\Http\Controllers\EnrolmentImportController;
+use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\QueueController;
@@ -36,8 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/modules/{module}/chatroom', [ChatroomController::class, 'show'])->name('chatroom.show');
 });
 
-Route::middleware(['can:access-admin'])->group(function () {
+Route::middleware(['auth','can:access-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
+    Route::post('/admin/import/modules', [ModuleImportController::class,'import'])->name('modules.import');
+    Route::post('/admin/import/enrolment', [EnrolmentImportController::class,'import'])->name('enrolment.import');
+    Route::post('/admin/import/users', [UserImportController::class,'import'])->name('users.import');
 });
 
 Route::middleware(['can:access-enrolment'])->group(function () {

@@ -14,7 +14,7 @@ class UserCreatedNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(private string $password)
     {
         //
     }
@@ -35,9 +35,12 @@ class UserCreatedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
+            ->subject('A LabTracker account has been made for you!')
+            ->line('A LabTracker account has been made for you using this email address.')
+            ->line('You have been provided a password: **'.$this->password.'**')
+            ->line('Please sign in and change your password below.')
             ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->line('LabTracker is your home for labs at Swansea University.');
     }
 
     /**

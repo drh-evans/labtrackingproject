@@ -26,8 +26,7 @@ Broadcast::channel('chatroom.{chatroomId}', function ($user, $chatroomId) {
     $isMember = $chatroom->module->users->contains($user->id);
     $isOpen = $chatroom->is_open;
 
-    //TODO Reimplement the isopen bit
-    $canAccess = $isMember; // && $isOpen;
+    $canAccess = $isMember && $isOpen;
 
     return $canAccess;
 });
