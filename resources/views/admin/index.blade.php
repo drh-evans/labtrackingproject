@@ -16,6 +16,9 @@
 
                 <p class="mt-2 text-gray-600 max-w-2xl">
                     Welcome to the admin dashboard, your hub for managing Lab Tracker. </p>
+                <p class="text-xs font-bold mt-2 text-red-600 max-w-2xl">
+                    It is important to note all CSV files must be imported in Comma-seperated Values format, CSV UTF-8 will
+                    fail. </p>
             </div>
         </div>
 

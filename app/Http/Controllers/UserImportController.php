@@ -7,6 +7,8 @@ use App\Services\CSVService;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+
 
 class UserImportController extends Controller
 {
@@ -60,7 +62,7 @@ class UserImportController extends Controller
 
             $user = User::create([
                 'email'=>$row['email'],
-                'name'=>$row['email'],
+                'name'=>$row['name'],
                 'password'=> $password,
             ]);
 
@@ -71,8 +73,11 @@ class UserImportController extends Controller
                 default => 1,
             };
 
+            // generate a unique token for the user
+            $resetToken = Password::createToken($user);
+
             $user->roles()->attach($roleId);
-            $user->notify(new UserCreatedNotification($password));
+            $user->notify(new UserCreatedNotification($resetToken));
         }
         return back()->with('success','Users imported successfully!');
     }
