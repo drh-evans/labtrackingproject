@@ -40,12 +40,25 @@ class ModuleEnrolmentManager extends Component
         $user->notify(new RemovedFromModuleNotification($this->module));
     }
 
+    // reset the page whenever the name is updated to prevent getting stuck
+    public function updatingNameSearch() {
+        $this->resetPage();
+    }
+
+    // reset the page whenever the name is updated to prevent getting stuck
+    public function updatingRoleFilter() {
+        $this->resetPage();
+    }
+
     public function render()
     {
-        // Get the users based on email -- assumption all users use an official uni email. If there's a role filter apply that as well.
-        $users = User::query()->when($this->nameSearch, fn($query) => $query->where('email','like',"%{$this->nameSearch}@swansea.test%"))
+        // Get the users based on name or email -- assume all users use an official uni email. If there's a role filter apply that as well.
+        $users = User::query()->when($this->nameSearch, fn($query) => $query->where(function($q) {
+            $q->where('email','like',"%{$this->nameSearch}@swansea.test%")
+                ->orWhere('name','like', "%{$this->nameSearch}%");
+        }))
         ->when($this->roleFilter, fn($query)=>$query->whereHas('roles', fn($roles)=>$roles->where('name', $this->roleFilter)))
-        ->orderBy('email')
+        ->orderBy('name')
         ->paginate(6);
 
         // Get the users enrolled on the module currently to display enrol or unenrol option

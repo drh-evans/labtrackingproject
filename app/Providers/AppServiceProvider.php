@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Observers\ModuleObserver;
 use App\Policies\LabTaskPolicy;
 use App\Policies\ModulePolicy;
+use App\Policies\UserPolicy;
 
 use App\Services\CSVService;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('access-staff', fn(User $user) => $user->hasRole('Admin') || $user->hasRole('Lecturer') || $user->hasRole('Teaching Assistant'));
         Gate::policy(LabTask::class, LabTaskPolicy::class);
         Gate::policy(Module::class, ModulePolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
 
         Module::observe(ModuleObserver::class);
     }

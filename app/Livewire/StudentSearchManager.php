@@ -27,6 +27,11 @@ class StudentSearchManager extends Component
         $this->module = $module;
     }
 
+    // reset the page whenever the name is updated to prevent getting stuck
+    public function updatingNameSearch() {
+        $this->resetPage();
+    }
+
     public function getStudentsProperty() 
     {
         return $this->module->users()->when($this->nameSearch, fn($query) => $query->where('email','like',"%{$this->nameSearch}%"))

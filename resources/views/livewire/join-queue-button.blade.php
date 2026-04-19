@@ -2,7 +2,7 @@
     <div>
         @if ($inQueue)
             <button wire:key="leave-button" wire:click="leaveQueue"
-                class="px-3 py-2 font-medium bg-red-500 hover:bg-red-600 text-sm uppercase font-semibold text-white shadow-md rounded-lg">
+                class="px-3 py-2  bg-red-500 hover:bg-red-600 text-sm uppercase font-semibold text-white shadow-md rounded-lg">
                 Leave
             </button>
         @else

@@ -14,9 +14,12 @@ class DashboardController extends Controller
     public function index() {
         $user = auth()->user();
 
-        $modules = $user->hasRole('Admin') 
-        ? Module::all() 
-        : $user->modules()->orderBy('module_code')->get();
+        // redirect admins to the admin dashboard 
+        if($user->hasRole('Admin')) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        $modules = $user->modules()->orderBy('module_code')->get();
 
         if ($user->hasRole("Student")) {
             $tasks = $this->getUpcomingDeadlines($modules, $user);

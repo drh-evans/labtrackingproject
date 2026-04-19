@@ -1,10 +1,10 @@
 <div class="flex flex-col items-center justify-center overflow-x-auto">
     <div class="flex- flex-row mb-6">
         <input type="text" wire:model.live.debounce.250ms="nameSearch" placeholder="Enter a user..."
-            class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+            class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300  rounded-md shadow-sm">
 
         <select wire:model.live="roleFilter"
-            class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+            class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300  rounded-md shadow-sm">
             @can('access-admin')
                 <option value="">All Roles</option>
                 <option value="Lecturer">Lecturer</option>
@@ -21,6 +21,7 @@
                     <tr>
                         <th class="px-6 py-3 font-medium">Email</th>
                         <th class="px-6 py-3 font-medium">Name</th>
+                        <th class="px-6 py-3 font-medium">Actions</th>
                     </tr>
                 </thead>
                 @foreach ($users as $user)

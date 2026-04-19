@@ -7,6 +7,8 @@ use App\Services\CSVService;
 use App\Models\User;
 use App\Models\Module;
 use App\Notifications\ModuleEnrollmentNotification;
+use Illuminate\Support\Facades\Gate;
+
 
 class ModuleImportController extends Controller
 {
@@ -15,6 +17,7 @@ class ModuleImportController extends Controller
     public function __construct(private CSVService $csvService){}
 
     public function import(Request $request) {
+        Gate::authorize('access-admin');
         $request->validate([
             'csv' => 'required|file|mimes:csv,txt|max:10240'
         ]);

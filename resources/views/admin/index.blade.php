@@ -17,8 +17,16 @@
                 <p class="mt-2 text-gray-600 max-w-2xl">
                     Welcome to the admin dashboard, your hub for managing Lab Tracker. </p>
                 <p class="text-xs font-bold mt-2 text-red-600 max-w-2xl">
-                    It is important to note all CSV files must be imported in Comma-seperated Values format, CSV UTF-8 will
+                    Important: CSV files must be imported in Comma-seperated Values format, CSV UTF-8 will
                     fail. </p>
+
+                <div class="flex flex-r0w gap-4 mt-4 items-center justify-center">
+                    <a href="{{ route('modules.create') }}">
+                        <x-secondary-button>{{ __('Create Module') }}</x-secondary-button> </a>
+
+                    <a href="{{ route('admin.users') }}">
+                        <x-secondary-button>{{ __('User Management') }}</x-secondary-button> </a>
+                </div>
             </div>
         </div>
 
@@ -26,18 +34,22 @@
             <div class="bg-gray-50 p-6  rounded-lg shadow-lg border border-gray-200 ">
                 <h2 class="text-xs text-gray-700 uppercase"> Users
                 </h2>
-                <p class="text-lg mt-2 text-gray-600 hover:text-black max-w-2xl font-semibold">
-                    {{ $totalStudents }} Students <br>
-                    {{ $totalTA }} TAs <br>
-                    {{ $totalLecturers }} Lecturers
-                </p>
+                <a href="{{ route('admin.users') }}">
+                    <p class="text-lg mt-2 text-gray-600 hover:text-black max-w-2xl font-semibold">
+                        {{ $totalStudents }} Students <br>
+                        {{ $totalTA }} TAs <br>
+                        {{ $totalLecturers }} Lecturers
+                    </p>
+                </a>
             </div>
 
             <div class="bg-gray-50 p-6  rounded-lg shadow-lg border border-gray-200 ">
                 <h2 class="text-xs text-gray-700 uppercase"> Total modules
                 </h2>
-                <p class="text-lg mt-2 text-gray-600 hover:text-black max-w-2xl font-semibold">
-                    {{ $totalModules }} </p>
+                <a href="{{ route('modules.index') }}">
+                    <p class="text-lg mt-2 text-gray-600 hover:text-black max-w-2xl font-semibold">
+                        {{ $totalModules }} </p>
+                </a>
             </div>
 
             <div class="bg-gray-50 p-6  rounded-lg shadow-lg border border-gray-200 ">
@@ -65,7 +77,8 @@
                     <input type="file" name="csv" accept=".csv,.txt" class="block w-full text-sm text-gray-700 mb-3">
                     <x-input-error :messages="$errors->get('csv')" class="mt-1" />
                     <button type="submit"
-                        class="rounded-lg font-semibold text-sm uppercase text-white bg-green-500 hover:bg-green-700 px-2 py-1 w-full">Import</button>
+                        class="rounded-lg font-semibold text-sm uppercase text-white bg-green-500 hover:bg-green-700 px-2 py-1 w-full">Import
+                        Users</button>
                 </form>
             </div>
             <div class="bg-gray-50 p-6 rounded-lg shadow-lg border border-gray-200 ">
@@ -78,7 +91,8 @@
                     <input type="file" name="csv" accept=".csv,.txt" class="block w-full text-sm text-gray-700 mb-3">
                     <x-input-error :messages="$errors->get('csv')" class="mt-1" />
                     <button type="submit"
-                        class="rounded-lg font-semibold text-sm uppercase text-white bg-green-500 hover:bg-green-700 px-2 py-1 w-full">Import</button>
+                        class="rounded-lg font-semibold text-sm uppercase text-white bg-green-500 hover:bg-green-700 px-2 py-1 w-full">Import
+                        Modules</button>
                 </form>
             </div>
 
@@ -91,12 +105,10 @@
                     <input type="file" name="csv" accept=".csv,.txt" class="block w-full text-sm text-gray-700 mb-3">
                     <x-input-error :messages="$errors->get('csv')" class="mt-1" />
                     <button type="submit"
-                        class="rounded-lg font-semibold text-sm uppercase text-white bg-green-500 hover:bg-green-700 px-2 py-1 w-full">Enrol</button>
+                        class="rounded-lg font-semibold text-sm uppercase text-white bg-green-500 hover:bg-green-700 px-2 py-1 w-full">Enrol
+                        Users</button>
                 </form>
             </div>
         </div>
-
-        <a href="{{ route('modules.create') }}"> Create a Module </a>
-        <p> User Management</p>
     </div>
 @endsection

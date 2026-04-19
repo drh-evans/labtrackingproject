@@ -97,9 +97,9 @@
                     </div>
                 </div>
 
-                <div class="flex flex-row justify-center">
+                <div class="flex flex-row justify-center gap-4">
                     <button type="submit"
-                        class="rounded-lg bg-green-500 hover:bg-green-400 px-4 py-2 text-sm font-semibold">
+                        class="rounded-lg bg-green-500 hover:bg-green-400 px-2 py-1 text-gray-700 text-sm uppercase font-semibold">
                         CREATE</button>
                     <a href="{{ route('admin.dashboard') }}">
                         <x-tertiary-button>CANCEL</x-tertiary-button>

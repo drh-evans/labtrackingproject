@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Gate;
+
 
 
 class UserImportController extends Controller
@@ -18,6 +20,7 @@ class UserImportController extends Controller
     public function __construct(private CSVService $csvService){}
 
     public function import(Request $request) {
+        Gate::authorize('access-admin');
         $request->validate([
             'csv' => 'required|file|mimes:csv,txt|max:10240'
         ]);

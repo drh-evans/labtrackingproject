@@ -41,7 +41,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth','can:access-admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
+
+    // user routes
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::patch('/admin/user/{user}', [AdminController::class, 'userUpdate'])->name('user.update');
+    // import routes
     Route::post('/admin/import/modules', [ModuleImportController::class,'import'])->name('modules.import');
     Route::post('/admin/import/enrolment', [EnrolmentImportController::class,'import'])->name('enrolment.import');
     Route::post('/admin/import/users', [UserImportController::class,'import'])->name('users.import');
