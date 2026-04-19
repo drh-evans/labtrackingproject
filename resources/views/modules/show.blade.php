@@ -59,10 +59,11 @@
         </div>
         <div class="flex flex-wrap gap-3 justify-center">
             @can('delete', $module)
-                <form action="{{ route('modules.destroy', $module) }}" method="POST">
+                <form action="{{ route('modules.destroy', $module) }}" method="POST" id="delete-module-{{ $module->id }}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit"
+                    <button type="button"
+                        onclick="if(confirm('Are you sure you want to delete {{ $module->module_code }}, {{ $module->module_name }}?')) document.getElementById('delete-module-{{ $module->id }}').submit()"
                         class="inline-flex items-center px-2 py-1 bg-red-600 border border-gray-500 rounded-md font-semibold text-sm text-white uppercase shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 disabled:opacity-25 transition ease-in-out duration-150">Delete</button>
                 </form>
             @endcan
@@ -117,10 +118,12 @@
                                 <div class="flex items-center justify-center gap-2">
 
                                     @can('delete', $labTask)
-                                        <form action="{{ route('lab-task.destroy', [$module, $labTask]) }}" method="POST">
+                                        <form action="{{ route('lab-task.destroy', [$module, $labTask]) }}" method="POST"
+                                            id="delete-task-{{ $module->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
+                                            <button type="button"
+                                                onclick="if(confirm('Are you sure you want to delete this task?')) document.getElementById('delete-task-{{ $module->id }}').submit()"
                                                 class="inline-flex items-center px-2 py-1 bg-red-600 border border-gray-500 rounded-md font-semibold text-sm text-white uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-red-500 disabled:opacity-25 transition ease-in-out duration-150">
                                                 Delete
                                             </button>

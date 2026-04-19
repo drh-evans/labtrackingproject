@@ -2,6 +2,7 @@
     <div>
         @if ($inQueue)
             <button wire:key="leave-button" wire:click="leaveQueue"
+                wire:confirm="Are you sure you want to leave the queue?"
                 class="px-3 py-2  bg-red-500 hover:bg-red-600 text-sm uppercase font-semibold text-white shadow-md rounded-lg">
                 Leave
             </button>
