@@ -15,7 +15,7 @@ class LivewireChatroom extends Component
     protected function getListeners(): array
     {
         return [
-            "echo-private:chatroom.{$this->chatroom->id},.message-sent" => 'messageReceived',
+            "echo-private:chatroom.{$this->chatroom->id},.message-sent" => '$refresh',
         ];
     }
 

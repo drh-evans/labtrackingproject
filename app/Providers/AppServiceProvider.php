@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('access-enrolment', fn(User $user) => $user->hasRole('Admin') || $user->hasRole('Lecturer'));
         Gate::define('access-staff', fn(User $user) => $user->hasRole('Admin') || $user->hasRole('Lecturer') || $user->hasRole('Teaching Assistant'));
         Gate::define('join-queue', fn(User $user) => $user->hasRole('Student'));
+        Gate::define('access-analytics', [ModulePolicy::class, 'accessAnalytics']);
         Gate::policy(LabTask::class, LabTaskPolicy::class);
         Gate::policy(Module::class, ModulePolicy::class);
         Gate::policy(User::class, UserPolicy::class);

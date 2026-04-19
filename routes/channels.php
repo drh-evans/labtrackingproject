@@ -23,7 +23,7 @@ Broadcast::channel('queues.{queueId}', function ($user, $queueId) {
 Broadcast::channel('chatroom.{chatroomId}', function ($user, $chatroomId) {
     $chatroom = Chatroom::with('module.users')->findOrFail($chatroomId);
     
-    $isMember = $chatroom->module->users->contains($user->id);
+    $isMember = $chatroom->module->users->contains($user->id) || $user->hasRole('Admin');
     $isOpen = $chatroom->is_open;
 
     $canAccess = $isMember && $isOpen;

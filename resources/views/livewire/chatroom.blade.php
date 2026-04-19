@@ -9,7 +9,7 @@
             <div class="flex flex-col {{ $isMe ? 'items-end' : 'items-start' }}">
                 <!-- check if you are the user or if its another user -->
                 <div class="text-xs font-semibold mb-1 px-1">
-                    {{ $isMe ? 'Me' : $message->user->name }}
+                    {{ $message->getDisplayName(auth()->user()) }}
                 </div>
 
                 <!-- display message content in a bubble like whatsapp or imessage -->
@@ -40,9 +40,5 @@
                 Send
             </button>
         </div>
-        <p class="text-red-600 text-xs italic text-center">Whilst chats are anonymous to other students, lecturers and
-            system administrators
-            still maintain full access. If you feel inapproporiate content has been posted please report this to lab
-            staff.</p>
     </div>
 </div>

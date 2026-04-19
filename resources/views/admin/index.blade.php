@@ -60,7 +60,7 @@
             </div>
 
             <div class="bg-gray-50 p-6  rounded-lg shadow-lg border border-gray-200 ">
-                <h2 class="text-xs text-gray-700 uppercase"> active queues
+                <h2 class="text-xs text-gray-700 uppercase"> active modules
                 </h2>
                 <p class="text-lg mt-2 text-gray-600 hover:text-black max-w-2xl font-semibold">
                     {{ $activeQueues }} </p>

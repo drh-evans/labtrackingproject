@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\ChatroomAnalyticsController;
 use App\Http\Controllers\ChatroomController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabTaskController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ModuleImportController;
 use App\Http\Controllers\EnrolmentImportController;
+use App\Http\Controllers\QueueAnalyticsController;
 use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
@@ -49,6 +51,11 @@ Route::middleware(['auth','can:access-admin'])->group(function () {
     Route::post('/admin/import/modules', [ModuleImportController::class,'import'])->name('modules.import');
     Route::post('/admin/import/enrolment', [EnrolmentImportController::class,'import'])->name('enrolment.import');
     Route::post('/admin/import/users', [UserImportController::class,'import'])->name('users.import');
+});
+
+Route::middleware(['auth','can:access-analytics,module'])->group(function () {
+    Route::get('/modules/{module}/chatroom/analytics', [ChatroomAnalyticsController::class, 'index'])->name('chatroom.analytics');
+    Route::get('/modules/{module}/queue/analytics', [QueueAnalyticsController::class, 'index'])->name('queue.analytics');
 });
 
 Route::middleware(['can:access-enrolment'])->group(function () {

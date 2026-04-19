@@ -36,6 +36,13 @@
                 <livewire:join-queue-button :queue="$queue" />
             </div>
         @endcan
+        @can('access-analytics', $queue->module)
+            <div class="flex items-center justify-center">
+                <a href="{{ route('queue.analytics', $queue->module->id) }}">
+                    <x-tertiary-button>{{ __('analytics') }}</x-tertiary-button>
+                </a>
+            </div>
+        @endcan
     </div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4">

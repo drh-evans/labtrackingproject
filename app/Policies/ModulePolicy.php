@@ -45,6 +45,15 @@ class ModulePolicy
         return $module->queue->is_open;
     }
 
+    public function accessAnalytics(User $user, Module $module): bool
+    {
+        $isAdmin = $user->hasRole('Admin');
+        $isEnroled = $module->users()->where('users.id', $user->id)->exists();
+        $isStaff = $user->hasRole('Teaching Assistant') || $user->hasRole('Lecturer');
+
+        return ($isEnroled && $isStaff) || $isAdmin;
+    }
+
     public function accessChatroom(User $user, Module $module): bool
     {
         return $module->chatroom->is_open;

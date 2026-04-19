@@ -43,13 +43,18 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastWith() : array
     {
+        // protect a students identity from anyone inspecting a WebSocket traffic
+        $user = $this->message->user;
+        $isStaff = $user->hasRole('Lecturer') || $user->hasRole('Teaching Assistant') || $user->hasRole('Admin');
+        $name = $isStaff ? $user->name : 'Anonymous Student';
+        
         return [
             'id'         => $this->message->id,
             'body'       => $this->message->body,
             'created_at' => $this->message->created_at->toTimeString(),
             'user' => [
                 'id'   => $this->message->user->id,
-                'name' => $this->message->user->name,
+                'name' => $name,
             ],
         ]; 
     }
