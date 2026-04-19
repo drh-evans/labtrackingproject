@@ -46,6 +46,6 @@
             </table>
         </div>
     @else
-        <p>No lab tasks found... </p>
+        <p class="text-gray-500 text-md text-center p-10">No lab tasks found...</p>
     @endif
 </div>

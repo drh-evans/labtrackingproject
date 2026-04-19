@@ -20,6 +20,9 @@ class ToggleQueueButton extends Component
         $chatroom = $this->module->chatroom()->first();
         $chatroom->is_open = !$chatroom->is_open;
         $chatroom->save();
+
+        // redirect after toggling as the main page is not blade so harder to refresh using events
+        return redirect()->route('modules.show', $this->module);
     }
 
     public function render()

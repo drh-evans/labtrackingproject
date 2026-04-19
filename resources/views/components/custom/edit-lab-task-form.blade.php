@@ -25,6 +25,8 @@
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="grid-task-name" type="text" name="task_name"
                         value="{{ old('task_name', $labTask->task_name) }}">
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('task_name')" class="mt-2" />
+
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6 text-left">
@@ -49,6 +51,7 @@
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="grid-total-points" type="number" name="total_points" step="0.5" min="0"
                         max="10" value="{{ old('total_points', $labTask->total_points) }}">
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('total_points')" class="mt-2" />
                     <p class="text-gray-600 text-xs italic mt-2">Range of 0 and 10</p>
                 </div>
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -60,6 +63,8 @@
                         class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="grid-full-marks" type="date" name="fm_due_date"
                         value="{{ old('fm_due_date', $labTask->fm_due_date->format('Y-m-d')) }}">
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('fm_due_date')" class="mt-2" />
+
                 </div>
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -70,21 +75,16 @@
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="grid-half-marks" type="date" name="hm_due_date"
                         value="{{ old('hm_due_date', $labTask->hm_due_date->format('Y-m-d')) }}">
+                    <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('hm_due_date')" class="mt-2" />
                 </div>
             </div>
 
-            <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('task_name')" class="mt-2" />
-            <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('total_points')" class="mt-2" />
-            <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('fm_due_date')" class="mt-2" />
-            <x-input-error :messages="$errors->{'labTaskEdit' . $labTask->id}->get('hm_due_date')" class="mt-2" />
-
-            <div class="mt-6 flex gap-2 justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
+            <div x-data="" x-on:browser-reload.window="window.location.reload()"
+                class="mt-6 flex gap-2 justify-end">
+                <x-primary-button type="submit">{{ __('Save Changes') }}</x-primary-button>
+                <x-tertiary-button x-on:click="$dispatch('close')">
                     {{ __('Close') }}
-                </x-secondary-button>
-                <button type="submit"
-                    class="rounded-lg font-semibold text-xs text-white bg-green-500 hover:bg-green-400 px-4 py-2">
-                    SAVE CHANGES </button>
+                </x-tertiary-button>
             </div>
         </form>
     </x-modal>

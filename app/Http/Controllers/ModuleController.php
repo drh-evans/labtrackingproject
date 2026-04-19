@@ -46,17 +46,12 @@ class ModuleController extends Controller
         // defaults to 0 if the total marks are 0 as 0/0 results in a warning, otherwise does the %
         $percentageEarned = $totalModuleMarks > 0 ? (($totalEarnedMarks / $totalModuleMarks) * 100) : 0;
 
-        return view('modules.show', ['module'=>$module, 'labTasks'=>$labTasks, 'signOffs'=>$signOffs, 'totalModuleMarks'=>$totalModuleMarks, 'totalEarnedMarks'=>$totalEarnedMarks, 'percentageEarned'=>$percentageEarned]);
+        return view('modules.show', ['module'=>$module, 'labTasks'=>$labTasks, 'signOffs'=>$signOffs, 'totalModuleMarks'=>$totalModuleMarks, 'totalEarnedMarks'=>$totalEarnedMarks, 'percentageEarned'=>$percentageEarned,'lecturers'=>$this->getLecturers()]);
     }
 
     public function create() {
         Gate::authorize('create', Module::class);
-        $lecturers = User::whereHas('roles', function($query) {
-            $query->where('name', 'Lecturer');
-        })
-        ->orderByDesc('email')
-        ->get();
-        return view('modules.create', compact('lecturers'));
+        return view('modules.create', ['lecturers'=>$this->getLecturers()]);
     }
 
     public function store(Request $request) {
@@ -97,21 +92,30 @@ class ModuleController extends Controller
 
     public function edit(Module $module) {
         Gate::authorize('edit', Module::class);
-        return view('modules.edit', ['module'=>$module]);
+        return view('modules.edit', ['module'=>$module, 'lecturers'=>$this->getLecturers()]);
     }
 
     public function update(Request $request, Module $module) {
         Gate::authorize('update', $module);
 
-        $validatedData = $request->validate([
-            'module_code'=>'required|string|max:10|unique:modules,module_code',
+        $validatedData = $request->validateWithBag('moduleEdit' . $module->id,[
+            'module_code'=>'required|string|max:10|unique:modules,module_code,'.$module->id,
             'module_name'=>'required|string|max:30',
-            'image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
+            'module_leader_id'=>'required|integer|min:0',
+
+            'year_group'=>'required|integer|min:0|max:4',
+            'year_taught'=>'required|integer|min:2015|max:2050',
+
+            'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        $module = new Module;
         $module->module_code = $validatedData['module_code'];
         $module->module_name = $validatedData['module_name'];
+        $module->module_leader_id = $validatedData['module_leader_id'];
+        $module->year_taught = $validatedData['year_taught'];
+        $module->year_group = $validatedData['year_group'];
 
         if ($request->hasFile('image')) {
             if ($module->bg_image_url) {
@@ -147,5 +151,14 @@ class ModuleController extends Controller
     public function signOff(Module $module, User $student) {
         Gate::authorize('signOff', $module);
         return view('modules.signoff', ['module'=>$module,'student'=>$student]);
+    }
+
+    private function getLecturers() {
+        $lecturers = User::whereHas('roles', function($query) {
+            $query->where('name', 'Lecturer');
+        })
+        ->orderByDesc('email')
+        ->get();
+        return $lecturers;
     }
 }

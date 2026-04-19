@@ -25,6 +25,12 @@
 
             <p class="text-md font-semibold mt-2"> Total Marks: {{ $totalEarnedMarks }} /
                 {{ $totalModuleMarks }} ({{ $percentageEarned }}%)</p>
+
+            <div class="flex items-center justify-center mt-2">
+                @can('openQueue', $module)
+                    @livewire('toggle-queue-button', ['module' => $module])
+                @endcan
+            </div>
         </div>
     </div>
 
@@ -36,10 +42,6 @@
 
             @can('accessQueue', $module)
                 @include('components.custom.queue-button', ['module' => $module])
-            @endcan
-
-            @can('openQueue', $module)
-                @livewire('toggle-queue-button', ['module' => $module])
             @endcan
         </div>
         <div class="flex flex-wrap gap-3 justify-center">
@@ -139,7 +141,7 @@
                 </table>
             </div>
         @else
-            <p>No lab tasks found...</p>
+            <p class="text-gray-500 text-md text-center p-10">No lab tasks found...</p>
         @endif
     </div>
 @endsection

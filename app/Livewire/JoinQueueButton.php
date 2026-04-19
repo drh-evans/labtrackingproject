@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Module;
 use App\Models\Queue;
 use App\Models\QueueEntry;
+use Illuminate\Support\Facades\Gate;
 
 class JoinQueueButton extends Component
 {
@@ -19,6 +20,7 @@ class JoinQueueButton extends Component
     public function leaveQueue()
     {
         $user = Auth::user();
+        Gate::authorize('join-queue');
         $queueEntry = QueueEntry::where('queue_id', $this->queue->id)
             ->where('student_id', $user->id)
             ->whereNull('left_at')

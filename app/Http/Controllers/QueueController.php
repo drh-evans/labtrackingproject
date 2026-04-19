@@ -24,7 +24,9 @@ class QueueController extends Controller
 
     public function joinQueue(Request $request, Module $module) 
     {
-    $queue = $module->queue;
+        Gate::authorize('accessQueue', $module);
+        Gate::authorize('join-queue');
+        $queue = $module->queue;
         $validatedData = $request->validateWithBag('joinQueue'.$queue->id,[
             'task' => 'required|string|max:150',
             'location' => 'required|string|max:150',

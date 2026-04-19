@@ -31,9 +31,11 @@
             @endif
         </div>
 
-        <div class="flex items-center justify-center">
-            <livewire:join-queue-button :queue="$queue" />
-        </div>
+        @can('join-queue')
+            <div class="flex items-center justify-center">
+                <livewire:join-queue-button :queue="$queue" />
+            </div>
+        @endcan
     </div>
 
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
