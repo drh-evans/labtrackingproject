@@ -10,21 +10,17 @@ class CSVService {
         $headers = [];
 
         while ((($row = fgetcsv($handle)) !== false)) {
-            // remove whitespace from the end and start of each value to prevent unexpected issues
             $row = array_map('trim', $row);
-
-            // detect the first row of the CSV and assign it to headers
+            
             if (empty($headers)) {
                 $headers = $row;
                 continue;
             }
 
-            // if the row count mismatches header count ignore that entry
             if(count($row) !== count($headers)) {
                 continue;
             }
 
-            // instead of data[0] make it data[header] i.e data['email'] for ease of use
             $data[] = array_combine($headers, $row);
         }
         fclose($handle);

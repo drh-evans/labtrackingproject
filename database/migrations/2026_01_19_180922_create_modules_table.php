@@ -25,7 +25,7 @@ return new class extends Migration
             ->references('id')
             ->on('users')
             ->nullOnDelete();
-
+            
             $table->unique(['module_code', 'year_taught']);
         });
     }

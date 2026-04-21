@@ -20,7 +20,6 @@ class QueueEntryObserver
     public function created(QueueEntry $queueEntry): void
     {
         broadcast(new QueueUpdated(entry: $queueEntry))->toOthers();
-        // QueueUpdated::dispatch($queueEntry);
     }
 
     /**
@@ -29,7 +28,6 @@ class QueueEntryObserver
     public function deleting(QueueEntry $queueEntry): void
     {
         broadcast(new QueueUpdated(entry: $queueEntry))->toOthers();
-        // QueueUpdated::dispatch($queueEntry);
     }
 
      /**

@@ -10,7 +10,7 @@
 
         <div class="bg-gray-50 p-6 m-10 rounded-lg shadow-lg max-w-lg mx-auto">
             <!-- Tailwind CSS form template, modified from https://v1.tailwindcss.com/components/forms , form grid-->
-            <form method="POST" action="{{ route('modules.store') }}" class="w-full max-w-lg">
+            <form method="POST" action="{{ route('modules.store') }}" enctype="multipart/form-data" class="w-full max-w-lg">
                 @csrf
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3">

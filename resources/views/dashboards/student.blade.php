@@ -2,7 +2,7 @@
 @section('title', 'Welcome')
 
 @section('content')
-    <div class="max-w-8xl mx-auto px-6 lg:px-8 mt-6 ">
+    <div class="max-w-8xl mx-auto px-6 lg:px-8 mt-6 mb-10">
         <div class="bg-gray-50 p-6  rounded-lg shadow-lg border border-gray-200">
             <div class="max-w-7xl mx-auto px-6 lg:px-8 py-10">
 
@@ -85,9 +85,9 @@
             </div>
         @endif
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mx-10 mt-6 mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mx-10 mt-6 mb-10 pb-10">
             <div class="bg-gray-50 p-6 rounded-lg shadow-lg border border-gray-200 ">
-                <h2 class="text-xs text-gray-700 uppercase"> Recent Modules
+                <h2 class="text-xs text-gray-700 uppercase"> Current Modules
                 </h2>
                 @forelse($recentModules as $module)
                     <div class="bg-slate-200 hover:bg-slate-300 mt-4 px-6 py-2 rounded-lg shadow-lg">
@@ -97,7 +97,7 @@
                         <p class="text-sm text-black">{{ $module->year_taught }}</p>
                     </div>
                 @empty
-                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-32">No modules found!
+                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-6">No modules found!
                     </p>
                 @endforelse
             </div>
@@ -116,7 +116,7 @@
                         </p>
                     </div>
                 @empty
-                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-32">No upcoming
+                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-6">No upcoming
                         deadlines!</p>
                 @endforelse
             </div>
@@ -132,7 +132,7 @@
                         <p class="text-sm text-red-600">Due on {{ $task->fm_due_date->format('d/m/Y') }}</p>
                     </div>
                 @empty
-                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-32">You're all caught
+                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-6">You're all caught
                         up!</p>
                 @endforelse
             </div>
@@ -148,7 +148,7 @@
                         <p class="text-sm text-green-600">Completed</p>
                     </div>
                 @empty
-                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-32">No completed tasks!
+                    <p class="font-semibold text-gray-600 hover:text-black max-w-2xl text-center mt-6">No completed tasks!
                     </p>
                 @endforelse
             </div>

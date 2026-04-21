@@ -132,9 +132,12 @@ class DashboardController extends Controller
                     $earnedMarks += $isCompleted->marks_awarded;
                 }
             }
-            $percentageEarned = round(($earnedMarks / $maxMarks) * 100,1);
-            return $percentageEarned;
         }
+         if ($maxMarks === 0) {
+                return 0;
+        }
+        $percentageEarned = round(($earnedMarks / $maxMarks) * 100,1);
+        return $percentageEarned;
     }
 
     private function getCurrentQueueEntry($user) {

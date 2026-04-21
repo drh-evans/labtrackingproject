@@ -3,7 +3,7 @@
         x-on:click.prevent="$dispatch('open-modal', 'confirm-module-edit')">{{ __('Edit Module') }}</x-tertiary-button>
 
     <x-modal name="confirm-module-edit" :show="$errors->{'moduleEdit' . $module->id}->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('modules.update', $module) }}" class="p-6">
+        <form method="post" action="{{ route('modules.update', $module) }}" enctype="multipart/form-data" class="p-6">
             @method('PATCH')
             @csrf
 

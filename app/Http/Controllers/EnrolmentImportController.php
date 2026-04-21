@@ -66,12 +66,10 @@ class EnrolmentImportController extends Controller
             $module = Module::where('module_code', $row['module_code'])
                       ->where('year_taught', $row['year_taught'])
                       ->first();
-
             // check if the user is already enrolled in the module, if they are skip
             if($module->users()->where('user_id',$user->id)->exists()) {
                 continue;
             }
-
             $module->users()->attach($user->id);
             $user->notify(new ModuleEnrollmentNotification($module));
         }

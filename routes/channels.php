@@ -11,7 +11,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('queues.{queueId}', function ($user, $queueId) {
     $queue = Queue::with('module.users')->findOrFail($queueId);
 
-    $isMember = $queue->module->users->contains($user->id);
+    $isMember = $queue->module->users->contains($user->id) || $user->hasRole('Admin');
     $isAdmin = $user->hasRole("Admin");
     
     $isOpen = $queue->is_open;

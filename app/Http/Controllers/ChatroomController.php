@@ -12,10 +12,6 @@ class ChatroomController extends Controller
         Gate::authorize('view', $module);
 
         $chatroom = $module->chatroom;
-
-        if(!$chatroom) {
-            abort(404, 'Chatroom not found!');
-        }
         
         return view('modules.chatroom', ['module'=>$module, 'chatroom'=>$chatroom]);
     }

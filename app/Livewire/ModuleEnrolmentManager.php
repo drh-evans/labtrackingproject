@@ -27,7 +27,6 @@ class ModuleEnrolmentManager extends Component
     {
         Gate::authorize('enrol', $this->module);
         $this->module->users()->syncWithoutDetaching($userID);
-
         $user = User::findOrFail($userID);
         $user->notify(new ModuleEnrollmentNotification($this->module));
     }
