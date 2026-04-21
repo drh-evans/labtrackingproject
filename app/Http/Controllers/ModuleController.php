@@ -109,8 +109,7 @@ class ModuleController extends Controller
 
             'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
-        $module = new Module;
+        
         $module->module_code = $validatedData['module_code'];
         $module->module_name = $validatedData['module_name'];
         $module->module_leader_id = $validatedData['module_leader_id'];
