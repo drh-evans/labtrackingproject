@@ -45,7 +45,7 @@ class WeeklyReportNotification extends Notification
                 $message->line($student['student']->name. ' (**'.$student['student']->email.')**');
             }
 
-        $message->action('Dashboard', url('/modules/'.$this->module))
+        $message->action('Dashboard', url('/modules/'.$this->module->id))
             ->line('Please ensure you contact these students to see if they require additional support.');
         return $message;
     }

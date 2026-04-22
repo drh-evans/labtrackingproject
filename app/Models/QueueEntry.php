@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Observers\QueueEntryObserver;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
 #[ObservedBy([QueueEntryObserver::class])]
 class QueueEntry extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'queue_id',
         'student_id',

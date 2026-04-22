@@ -44,7 +44,7 @@ class ChatroomAnalyticsController extends Controller
         $wordsToIgnore = [ // common words sent
                            'hi','hello','hey','hii','hiya','greetings','hola','thanks','thank','you','ok','okay','yes',
                            'ye','yeah','yep','no','nope','please','sorry','bye','goodbye','nice','good','the','an','a','and',
-                           'or','but','what','when','at','on','it','its','they','them','to','from','any','can','see','be'];
+                           'or','but','what','when','at','on','it','its','they','them','to','from','any','can','see','be',"don't"];
 
 
         $words[] = [];

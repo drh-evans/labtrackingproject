@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Observers\MessageObserver;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 #[ObservedBy([MessageObserver::class])]
 class Message extends Model
 {
+    use HasFactory;
     protected $fillable = ['chatroom_id', 'user_id', 'body', 'edited_at'];
 
     public function chatroom() {
