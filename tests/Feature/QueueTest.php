@@ -5,6 +5,9 @@ use App\Models\Queue;
 use App\Models\QueueEntry;
 
 use Illuminate\Support\Facades\DB;
+use Livewire\Livewire;
+use App\Livewire\JoinQueueButton;
+use App\Livewire\RemoveFromQueue;
 
 use function Pest\Laravel\{actingAs};
 use function Pest\Laravel\{assertDatabaseHas};
@@ -43,7 +46,7 @@ test('student can join open queue', function () {
     ]);
 });
 
-test('student cannot join closed queue', function () {
+test('student cant join closed queue', function () {
     $student = User::factory()->create();
     $student->roles()->attach(1);
 
@@ -58,7 +61,7 @@ test('student cannot join closed queue', function () {
     ])->assertForbidden();
 });
 
-test('ta cannot join open queue', function () {
+test('ta cant join open queue', function () {
     $ta = User::factory()->create();
     $ta->roles()->attach(2);
 
@@ -74,7 +77,7 @@ test('ta cannot join open queue', function () {
     ])->assertForbidden();
 });
 
-test('lecturer cannot join open queue', function () {
+test('lecturer cant join open queue', function () {
     $lecturer = User::factory()->create();
     $lecturer->roles()->attach(3);
 
@@ -150,6 +153,104 @@ test('queue position is null after leaving', function () {
 
     $entry->update(['left_at'=>now(), 'queue_position' => null]);
     $module->queue->reorderPositions();
+
+    assertDatabaseHas('queue_entries', ['id'=> $entry->id, 'queue_position'=> null]);
+    assertDatabaseMissing('queue_entries', ['id'=> $entry->id, 'left_at'=> null]);
+});
+
+// queue remove button tests
+
+test('lecturer can remove student from queue', function() {
+    $lecturer = User::factory()->create();
+    $lecturer->roles()->attach(3);
+    $student = User::factory()->create();
+    $student->roles()->attach(1);
+
+    $module = Module::factory()->create();
+    $module->queue->update(['is_open'=>true]);
+    $module->users()->attach([$student->id, $lecturer->id]);
+
+    $entry = QueueEntry::factory()->create([
+        'queue_id' => $module->queue->id,
+        'student_id' => $student->id,
+        'queue_position' => 1,
+        'left_at'=>null,
+    ]);
+
+    actingAs($lecturer);
+
+    Livewire::test(RemoveFromQueue::class, ['queueEntry' => $entry])->call('remove');
+
+    assertDatabaseHas('queue_entries', ['id'=> $entry->id, 'queue_position'=> null]);
+    assertDatabaseMissing('queue_entries', ['id'=> $entry->id, 'left_at'=> null]);
+});
+
+// queue remove button tests
+
+test('ta can remove student from queue', function() {
+    $ta = User::factory()->create();
+    $ta->roles()->attach(2);
+    $student = User::factory()->create();
+    $student->roles()->attach(1);
+
+    $module = Module::factory()->create();
+    $module->queue->update(['is_open'=>true]);
+    $module->users()->attach([$student->id, $ta->id]);
+
+    $entry = QueueEntry::factory()->create([
+        'queue_id' => $module->queue->id,
+        'student_id' => $student->id,
+        'queue_position' => 1,
+        'left_at'=>null,
+    ]);
+
+    actingAs($ta);
+
+    Livewire::test(RemoveFromQueue::class, ['queueEntry' => $entry])->call('remove');
+
+    assertDatabaseHas('queue_entries', ['id'=> $entry->id, 'queue_position'=> null]);
+    assertDatabaseMissing('queue_entries', ['id'=> $entry->id, 'left_at'=> null]);
+});
+
+test('student cant remove student from queue', function() {
+    $student = User::factory()->create();
+    $student->roles()->attach(1);
+
+    $module = Module::factory()->create();
+    $module->queue->update(['is_open'=>true]);
+    $module->users()->attach($student->id);
+
+    $entry = QueueEntry::factory()->create([
+        'queue_id' => $module->queue->id,
+        'student_id' => $student->id,
+        'queue_position' => 1,
+        'left_at'=>null,
+    ]);
+
+    actingAs($student);
+    Livewire::test(RemoveFromQueue::class, ['queueEntry' => $entry])
+    ->call('remove')
+    ->assertForbidden();
+});
+
+// join queue button test
+test('student can leave queue', function() {
+    $student = User::factory()->create();
+    $student->roles()->attach(1);
+
+    $module = Module::factory()->create();
+    $module->queue->update(['is_open'=>true]);
+    $module->users()->attach($student->id);
+
+    $entry = QueueEntry::factory()->create([
+        'queue_id' => $module->queue->id,
+        'student_id' => $student->id,
+        'queue_position' => 1,
+    ]);
+
+    actingAs($student);
+
+    Livewire::test(JoinQueueButton::class, ['queue' => $module->queue])->call('leaveQueue');
 
     assertDatabaseHas('queue_entries', ['id'=> $entry->id, 'queue_position'=> null]);
     assertDatabaseMissing('queue_entries', ['id'=> $entry->id, 'left_at'=> null]);

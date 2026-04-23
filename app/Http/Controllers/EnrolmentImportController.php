@@ -46,7 +46,7 @@ class EnrolmentImportController extends Controller
                 return back()->with('error', 'Invalid email provided on row '.$rowNumber);
             }
 
-            if(!User::where('email',$row['email']->exists())) {
+            if(!User::where('email',$row['email'])->exists()) {
                 return back()->with('error', 'Email provided not found, on row '.$rowNumber);
             }
 

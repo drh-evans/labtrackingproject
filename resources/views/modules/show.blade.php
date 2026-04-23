@@ -74,7 +74,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-center justify-center overflow-x-auto">
+    <div class="flex flex-col items-center justify-center overflow-x-auto mb-10">
         @if ($labTasks->isNotEmpty())
             <div class="relative inline-block bg-neutral-primary-soft shadow-xs rounded-base border border-default">
                 <table class="text-sm text-center rtl:text-right text-body">
@@ -83,7 +83,9 @@
                             <th class="px-6 py-3 font-medium">Task Name</th>
                             <th class="px-6 py-3 font-medium">Status</th>
                             <th class="px-6 py-3 font-medium">Marks</th>
-                            <th class="px-6 py-3 font-medium">Actions</th>
+                            @can('access-enrolment', $module)
+                                <th class="px-6 py-3 font-medium">Actions</th>
+                            @endcan
                         </tr>
                     </thead>
                     @foreach ($labTasks as $labTask)

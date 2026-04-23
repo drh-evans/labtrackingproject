@@ -29,8 +29,8 @@ class DashboardController extends Controller
             $openModules = $this->getOpenModules($modules);
             $recentModules = $this->getRecentModules($modules);
 
-            $percentageTasksCompleted = $this->getCompletion($modules, $user);
-            $averageMarks = $this->getAverageGrade($modules, $user);
+            $percentageTasksCompleted = round($this->getCompletion($modules, $user), 1);
+            $averageMarks = round($this->getAverageGrade($modules, $user),1);
             $currentEntry = $this->getCurrentQueueEntry($user);
             return view('dashboards.student', compact(
                 'modules', 

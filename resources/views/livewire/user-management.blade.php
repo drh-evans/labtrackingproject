@@ -30,7 +30,7 @@
                         class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
                         <td class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $user->email }}</td>
                         <td class="px-6 py-4">{{ $user->name }}</td>
-                        <td class="px-6 py-4">{{ $user->roles->first()->name }}</td>
+                        <td class="px-6 py-4">{{ $user->roles->first()?->name ?? 'No role' }}</td>
                         <td class="px-6 py-4">
                             <div class="flex flex-row gap-2">
                                 <button wire:click="deleteUser({{ $user->id }})"

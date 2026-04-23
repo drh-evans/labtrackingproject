@@ -1,4 +1,4 @@
-<footer class="footer sm:footer-horizontal bg-blue-950 text-white p-16">
+<footer class="footer sm:footer-horizontal bg-blue-950 text-white p-16 mt-10">
     <div class="flex flex-row items-center justify-center">
         <a href="{{ route('dashboard') }}" class="pr-5">@include('components.application-logo')</a>
 
