@@ -1,64 +1,21 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# A Lab System That Improves the Student Learning Experience
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## David Rhys Evans (2316644)
 
-## About Laravel
+### Abstract
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+In an ever-changing world full of technology and its growing use in education, Computer Science laboratory sessions remain inconsistent, staff require tools that support queue and grade management, and students require real-time assistance. Current solutions, such as Lab Tracker and Canvas, focus on administrative actions and lack real-time features to support labs. This results in courses relying on third-party solutions if they wish to implement queues or chatrooms, resulting in a fragmented experience that disrupts learners.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project tackles these limitations by building a fully integrated laboratory management system with real-time functionality using Laravel, Livewire, and WebSocket technology. The system provides the current functionality of the lab tracker, implementing bulk CSV uploads for fast user and module creations, and task sign-off. However, it expands on the existing application by implementing a real-time queue system, an anonymous chatroom, a weekly progress report for staff, and analytics dashboards for chatroom and queue stats, including word clouds to recognise frequently discussed topics.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The system was evaluated through a combination of automated unit tests and user acceptance testing. With all surveyed users preferring the produced solution to previous approaches and describing the interface as satisfactory. Results from testing indicate that students found the integrated solution to be engaging and simple to use, although some noted concerns regarding the usability and abuse of a chatroom, highlighting areas for improvement. Future work includes developing an anonymous feedback system to provide staff with meaningful student feedback and exploring the use of artificial intelligence to support the laboratory experience.
 
-## Learning Laravel
+### Running the application locally
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+In order to run you must have Docker installed, from there you must install Laravel sail which can be done using the following composer command:
+composer require laravel/sail --dev
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-To run locally:
+Once sail has been installed you must then run the following commands in seperate terminals to run the application locally:
 sail up -d (-d, optional)
 sail npm run dev (in seperate terminal)
 sail artisan reverb:start --debug
