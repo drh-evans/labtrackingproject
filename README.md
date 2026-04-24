@@ -16,7 +16,11 @@ In order to run you must have Docker installed, from there you must install Lara
 composer require laravel/sail --dev
 
 Once sail has been installed you must then run the following commands in seperate terminals to run the application locally:
+
 sail up -d (-d, optional)
+
 sail npm run dev (in seperate terminal)
+
 sail artisan reverb:start --debug
+
 sail artisan queue:work
